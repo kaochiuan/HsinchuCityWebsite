@@ -1,0 +1,18 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+{% for god in gods %}
+    <font color="blue">{{god.temple}} </font> : <font color="green">{{god.mastergod}}</font><br/>
+{% endfor %}
+
+{% endblock %}
