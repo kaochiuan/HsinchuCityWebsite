@@ -101,5 +101,5 @@ def address_to_location(request):
     except urllib.error.HTTPError as e:
         print(e.code)
         print(e.read().decode("utf-8-sig"))    
-    return HttpResponse(json.dumps({"status": "OK", "lat":latitude, "lng": longitude}),
+    return HttpResponse(json.dumps({"status": "OK", "lat": latitude, "lng": longitude}),
             content_type="application/json")
