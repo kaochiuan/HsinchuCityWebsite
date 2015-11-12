@@ -6,6 +6,7 @@
     <RootNamespace>HsinchuCityWebsite</RootNamespace>
     <InterpreterId>{b1c0c1d0-581d-4f1a-8c6d-4657f66aa8c9}</InterpreterId>
     <InterpreterVersion>3.4</InterpreterVersion>
+    <NameOfLastUsedPublishProfile>HsinchuCity</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -55,6 +56,7 @@
   <ItemGroup>
     <Content Include="app\static\app\images\HsinchuLogo.png" />
     <Content Include="app\templates\app\allMyGods.html" />
+    <None Include="HsinchuCity.pubxml" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />
