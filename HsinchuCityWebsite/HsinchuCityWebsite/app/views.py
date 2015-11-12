@@ -13,6 +13,7 @@ import json
 import urllib
 from urllib.request import Request
 from app.models import god
+from django.contrib.sites import requests
 
 def home(request):
     """Renders the home page."""
@@ -81,3 +82,24 @@ def allMyGodsInHsinchu(request):
             'gods':templeLst,
         }))
     
+def address_to_location(request):
+    assert isinstance(request, HttpRequest)
+    #address = request.POST['address']
+    #if address == "":
+    address = request.GET['address']
+    encodeAddress = urllib.parse.urlencode({'address': address})
+    url = "https://maps.googleapis.com/maps/api/geocode/json?%s" % encodeAddress
+    try:
+        req = Request(url)
+        response = urllib.request.urlopen(req).readall().decode('utf-8')
+        jsongeocode = json.loads(response) 
+        if  jsongeocode['status'] == "OK":
+            longitude, latitude = jsongeocode['results'][0]['geometry']['location'].values()
+        else:
+            return HttpResponse(json.dumps({"status": "Fail"}),
+            content_type="application/json")
+    except urllib.error.HTTPError as e:
+        print(e.code)
+        print(e.read().decode("utf-8-sig"))    
+    return HttpResponse(json.dumps({"status": "OK", "lat":latitude, "lng": longitude}),
+            content_type="application/json")
