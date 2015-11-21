@@ -12,7 +12,9 @@
 <br/>
 <br/>
 {% for god in gods %}
-    <font color="blue">{{god.temple}} </font> : <font color="green">{{god.mastergod}}</font><br/>
+    <font color="green">{{god.mastergod}}</font>@<font color="blue">{{god.temple}} </font> <br/>
+    <font color="purple">{{god.location.address}}</font><br/>
+    <font color="black">Latlng: {{god.location.latlng.lat}}, {{god.location.latlng.lng}}</font> <br/> <br/>
 {% endfor %}
 
 {% endblock %}

@@ -12,7 +12,7 @@ import urllib.request
 import json
 import urllib
 from urllib.request import Request
-from app.models import god
+from app.models import latlng, location, god
 from django.contrib.sites import requests
 
 def home(request):
@@ -67,9 +67,20 @@ def allMyGodsInHsinchu(request):
         ur = response.readall().decode('utf-8-sig')
         j_obj = json.loads(ur) 
         templeLst = []
+
         for jsonObj in j_obj:
-            g = god(jsonObj["寺廟名稱"],jsonObj["地區"],jsonObj["主祀神像"],jsonObj["教別"],jsonObj["組織型態"],jsonObj["寺廟所在地"],jsonObj["寺廟電話 1"],jsonObj["寺廟電話 2"])
+            address = jsonObj["寺廟所在地"]
+            success, lat, lng = AddressToLatlng(address)
+            if success == True:
+                wgs84locate = latlng(lat, lng)
+                loc = location(address,wgs84locate)
+            else:
+                wgs84locate = latlng(0.0, 0.0)
+                loc = location(address,wgs84locate)
+
+            g = god(jsonObj["寺廟名稱"],jsonObj["地區"],jsonObj["主祀神像"],jsonObj["教別"],jsonObj["組織型態"],loc,jsonObj["寺廟電話 1"],jsonObj["寺廟電話 2"])
             templeLst.append(g)
+
     except urllib.error.HTTPError as e:
         print(e.code)
         print(e.read().decode("utf-8-sig"))
@@ -86,20 +97,31 @@ def address_to_location(request):
     assert isinstance(request, HttpRequest)
     #address = request.POST['address']
     #if address == "":
-    address = request.GET['address']
-    encodeAddress = urllib.parse.urlencode({'address': address})
-    url = "https://maps.googleapis.com/maps/api/geocode/json?%s" % encodeAddress
     try:
-        req = Request(url)
-        response = urllib.request.urlopen(req).readall().decode('utf-8')
-        jsongeocode = json.loads(response) 
-        if  jsongeocode['status'] == "OK":
-            longitude, latitude = jsongeocode['results'][0]['geometry']['location'].values()
+        success, lat, lng = AddressToLatlng(address)
+        if  success == True:
+            return HttpResponse(json.dumps({"status": "OK", "lat": lat, "lng": lng}),
+            content_type="application/json")
         else:
-            return HttpResponse(json.dumps({"status": "Fail"}),
+            return HttpResponse(json.dumps({"status": "Fail", "lat": lat, "lng": lng}),
             content_type="application/json")
     except urllib.error.HTTPError as e:
         print(e.code)
-        print(e.read().decode("utf-8-sig"))    
-    return HttpResponse(json.dumps({"status": "OK", "lat": latitude, "lng": longitude}),
-            content_type="application/json")
+        print(e.read().decode("utf-8-sig"))
+    return HttpResponse(json.dumps({"status": "Fail", "lat": lat, "lng": lng}),
+                        content_type="application/json")
+
+def AddressToLatlng(address):
+    encodeAddress = urllib.parse.urlencode({'address': address})
+    url = "https://maps.googleapis.com/maps/api/geocode/json?%s" % encodeAddress
+    req = Request(url)
+    response = urllib.request.urlopen(req).readall().decode('utf-8')
+    jsongeocode = json.loads(response) 
+    longitude = 0.0
+    latitude = 0.0
+    success = False
+
+    if  jsongeocode['status'] == "OK":
+        success = True
+        longitude, latitude = jsongeocode['results'][0]['geometry']['location'].values()        
+    return success, latitude, longitude
