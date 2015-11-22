@@ -31,7 +31,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app\forms.py" />
+    <Compile Include="app\migrations\0001_initial.py" />
+    <Compile Include="app\migrations\__init__.py" />
     <Compile Include="app\models.py" />
+    <Compile Include="app\templateModels.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\tests.py" />
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
@@ -43,19 +48,27 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
+    <Folder Include="app\migrations\" />
+    <Folder Include="app\migrations\__pycache__\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\app\" />
     <Folder Include="app\static\app\content\" />
     <Folder Include="app\static\app\fonts\" />
     <Folder Include="app\static\app\images\" />
     <Folder Include="app\static\app\scripts\" />
+    <Folder Include="app\static\app\scripts\templates\" />
+    <Folder Include="app\static\app\scripts\Util\" />
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\app\" />
     <Folder Include="HsinchuCityWebsite\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\migrations\__pycache__\__init__.cpython-34.pyc" />
     <Content Include="app\static\app\images\HsinchuLogo.png" />
     <Content Include="app\static\app\images\logo.png" />
+    <Content Include="app\static\app\scripts\templates\about.js" />
+    <Content Include="app\static\app\scripts\Util\commonUtil.js" />
+    <Content Include="app\static\app\scripts\Util\StringExtension.js" />
     <Content Include="app\templates\app\allMyGods.html" />
     <None Include="HsinchuCity.pubxml" />
     <Content Include="requirements.txt" />

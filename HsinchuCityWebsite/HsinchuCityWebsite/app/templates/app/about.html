@@ -6,5 +6,13 @@
 <h3>{{ message }}</h3>
 
 <p>Use this area to provide additional information.</p>
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+<div id="syncTemples">sync templeInfo to database</div>
 
+{% endblock %}
+
+
+
+{% block scripts %}
+<script src="{{ STATIC_URL }}app/scripts/templates/about.js"></script>
 {% endblock %}

@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^about$', 'app.views.about', name='about'),
     url(r'^allMyGodsInHsinchu$', 'app.views.allMyGodsInHsinchu', name='allMyGodsInHsinchu'),
     url(r'^addressToLatlng$', 'app.views.address_to_location', name='addressToLatlng'),
+    url(r'^syncTempleInfo$', 'app.views.syncTempleInfo', name='syncTempleInfo'),
     url(r'^login/$',
         'django.contrib.auth.views.login',
         {

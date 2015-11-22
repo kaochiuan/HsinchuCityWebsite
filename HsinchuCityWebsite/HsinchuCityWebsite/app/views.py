@@ -12,8 +12,10 @@ import urllib.request
 import json
 import urllib
 from urllib.request import Request
-from app.models import latlng, location, god
+from app.models import TempleInfo, TempleManager
+from app.templateModels import *
 from django.contrib.sites import requests
+from django.views.decorators.csrf import csrf_protect
 
 def home(request):
     """Renders the home page."""
@@ -78,7 +80,7 @@ def allMyGodsInHsinchu(request):
                 wgs84locate = latlng(0.0, 0.0)
                 loc = location(address,wgs84locate)
 
-            g = god(jsonObj["寺廟名稱"],jsonObj["地區"],jsonObj["主祀神像"],jsonObj["教別"],jsonObj["組織型態"],loc,jsonObj["寺廟電話 1"],jsonObj["寺廟電話 2"])
+            g = temple(jsonObj["寺廟名稱"],jsonObj["地區"],jsonObj["主祀神像"],jsonObj["教別"],jsonObj["組織型態"],loc,jsonObj["寺廟電話 1"],jsonObj["寺廟電話 2"])
             templeLst.append(g)
 
     except urllib.error.HTTPError as e:
@@ -125,3 +127,53 @@ def AddressToLatlng(address):
         success = True
         longitude, latitude = jsongeocode['results'][0]['geometry']['location'].values()        
     return success, latitude, longitude
+
+@csrf_protect
+def syncTempleInfo(request):
+    assert isinstance(request, HttpRequest)
+    req = Request("http://opendata.hccg.gov.tw/dataset/480911dd-6eea-4f97-a7e8-334b32cc8f6b/resource/ee12c072-e8aa-4be1-8179-f1c9606198f3/download/20150304091340575.json")
+    templeLst = []
+    success = False
+    try:
+        response = urllib.request.urlopen(req)
+        ur = response.readall().decode('utf-8-sig')
+        j_obj = json.loads(ur) 
+        
+        for jsonObj in j_obj:
+            address = jsonObj["寺廟所在地"]
+            success, lat, lng = AddressToLatlng(address)
+            if success == True:
+                wgs84locate = latlng(lat, lng)
+                loc = location(address,wgs84locate)
+            else:
+                wgs84locate = latlng(0.0, 0.0)
+                loc = location(address,wgs84locate)
+
+            g = temple(jsonObj["寺廟名稱"],jsonObj["地區"],jsonObj["主祀神像"],jsonObj["教別"],jsonObj["組織型態"],loc,jsonObj["寺廟電話 1"],jsonObj["寺廟電話 2"])
+            templeLst.append(g)
+    except urllib.error.HTTPError as e:
+        print(e.code)
+        print(e.read().decode("utf-8-sig"))
+
+    if len(templeLst) > 0:
+        # sync templeInfo to database
+        for item in templeLst:
+            filterResult = TempleInfo.objects.filter_temple(name = item.name, locateRegion = item.locateRegion, masterGod = item.mastergod, address = item.location.address)
+            if len(filterResult) == 0:
+                templeItem = TempleInfo.objects.create_temple(name=item.name, locateRegion=item.locateRegion, religiousBelief=item.religiousBelief,
+                                                                masterGod=item.mastergod, address=item.location.address, latitude=item.location.latlng.lat,
+                                                                longitude=item.location.latlng.lng, phone1=item.phone1, phone2=item.phone2)
+            elif len(filterResult) == 1 and filterResult[0].latitude == 0 and filterResult[0].longitude == 0 :
+                latitude = item.location.latlng.lat 
+                longitude =  item.location.latlng.lng
+                if latitude != 0 and longitude != 0:
+                    filterResult[0].latitude = latitude
+                    filterResult[0].longitude = longitude
+                    filterResult[0].save()
+
+
+        return HttpResponse(json.dumps({"status": "Success"}),
+                        content_type="application/json")
+    else:
+        return HttpResponse(json.dumps({"status": "Fail"}),
+                        content_type = "application/json")
