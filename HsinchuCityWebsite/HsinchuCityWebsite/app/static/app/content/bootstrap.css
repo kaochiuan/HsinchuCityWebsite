@@ -6814,7 +6814,7 @@ a.list-group-item-warning.active:focus {
   background-color: #e08e0b;
 }
 a.list-group-item-danger.active {
-  background-color: #e74c3c;
+  background-color: #e74c3c; 
 }
 a.list-group-item-danger.active:hover,
 a.list-group-item-danger.active:focus {
