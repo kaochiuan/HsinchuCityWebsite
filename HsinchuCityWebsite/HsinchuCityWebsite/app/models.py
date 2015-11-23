@@ -13,8 +13,8 @@ class TempleManager(models.Manager):
                              phone1=phone1, phone2=phone2)
         return temple
 
-    def filter_temple(self,name,locateRegion,masterGod,address):
-        temple = self.filter(name=name, locateRegion=locateRegion,  masterGod=masterGod, address=address)
+    def filter_temple(self,name,locateRegion,masterGod):
+        temple = self.filter(name=name, locateRegion=locateRegion,  masterGod=masterGod)
         return temple
 
     def filterByMasterGod(self, masterGod):

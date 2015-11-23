@@ -64,18 +64,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\migrations\__pycache__\__init__.cpython-34.pyc" />
+    <Content Include="app\static\app\content\bootstrap.css" />
+    <Content Include="app\static\app\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="app\static\app\images\banner.png" />
     <Content Include="app\static\app\images\HsinchuLogo.png" />
     <Content Include="app\static\app\images\logo.png" />
+    <Content Include="app\static\app\scripts\freelancer.js" />
+    <Content Include="app\static\app\scripts\jqBootstrapValidation.js" />
     <Content Include="app\static\app\scripts\templates\about.js" />
     <Content Include="app\static\app\scripts\Util\commonUtil.js" />
     <Content Include="app\static\app\scripts\Util\StringExtension.js" />
     <Content Include="app\templates\app\allMyGods.html" />
     <None Include="HsinchuCity.pubxml" />
+    <Content Include="app\templates\app\index.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
-    <Content Include="app\static\app\content\bootstrap.css" />
     <Content Include="app\static\app\content\bootstrap.min.css" />
-    <Content Include="app\static\app\content\site.css" />
+    <Content Include="app\static\app\content\freelancer.css" />
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.ttf" />
@@ -97,7 +102,6 @@
     <Content Include="app\static\app\scripts\_references.js" />
     <Content Include="app\templates\app\about.html" />
     <Content Include="app\templates\app\contact.html" />
-    <Content Include="app\templates\app\index.html" />
     <Content Include="app\templates\app\layout.html" />
     <Content Include="app\templates\app\login.html" />
     <Content Include="app\templates\app\loginpartial.html" />

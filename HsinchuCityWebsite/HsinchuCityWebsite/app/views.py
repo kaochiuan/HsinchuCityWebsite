@@ -158,7 +158,7 @@ def syncTempleInfo(request):
     if len(templeLst) > 0:
         # sync templeInfo to database
         for item in templeLst:
-            filterResult = TempleInfo.objects.filter_temple(name = item.name, locateRegion = item.locateRegion, masterGod = item.mastergod, address = item.location.address)
+            filterResult = TempleInfo.objects.filter_temple(name = item.name, locateRegion = item.locateRegion, masterGod = item.mastergod)
             if len(filterResult) == 0:
                 templeItem = TempleInfo.objects.create_temple(name=item.name, locateRegion=item.locateRegion, religiousBelief=item.religiousBelief,
                                                                 masterGod=item.mastergod, address=item.location.address, latitude=item.location.latlng.lat,
