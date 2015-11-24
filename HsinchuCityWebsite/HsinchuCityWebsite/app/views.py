@@ -52,10 +52,10 @@ def about(request):
             'year':datetime.now().year,
         }))
 
-def allMyGods(request):
+def templeMaps(request):
     assert isinstance(request, HttpRequest)
     return render(request,
-        'app/allmygods.html',
+        'app/templeMaps.html',
         context_instance = RequestContext(request,
         {
             'title':'求人不如求神',

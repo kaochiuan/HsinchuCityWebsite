@@ -79,11 +79,13 @@
     <Content Include="app\static\app\scripts\freelancer.js" />
     <Content Include="app\static\app\scripts\jqBootstrapValidation.js" />
     <Content Include="app\static\app\scripts\templates\about.js" />
+    <Content Include="app\static\app\scripts\templates\templeMaps.js" />
     <Content Include="app\static\app\scripts\Util\commonUtil.js" />
     <Content Include="app\static\app\scripts\Util\StringExtension.js" />
     <Content Include="app\templates\app\allMyGods.html" />
     <None Include="HsinchuCity.pubxml" />
     <Content Include="app\templates\app\index.html" />
+    <Content Include="app\templates\app\templeMaps.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.min.css" />

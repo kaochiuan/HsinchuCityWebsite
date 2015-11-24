@@ -44,7 +44,7 @@
                 </div>
 				<img class="img-responsive" src="{% static 'app/images/banner.png' %}" alt="" style="float:right">
                 <ul style="float: left">
-                    <li><a href="{% url 'allMyGodsInHsinchu' %}">求人不如求神</a></li>
+                    <li><a href="{% url 'templeMaps' %}">求人不如求神</a></li>
                 </ul>
             </div>
         </div>
@@ -78,7 +78,7 @@
         </a>
     </div>
 
-    <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'app/scripts/jquery-1.11.3.js' %}"></script>
     <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script src="{% static 'app/scripts/respond.js' %}"></script>
@@ -88,9 +88,8 @@
     <script src="{% static 'app/scripts/cbpAnimatedHeader.js' %}"></script>
     <!-- Contact Form JavaScript -->
     <script src="{% static 'app/scripts/jqBootstrapValidation.js' %}"></script>
-    <script src="{% static 'app/scripts/contact_me.js' %}"></script>
     <!-- Custom Theme JavaScript -->
-    <script src="js/freelancer.js"></script>
+    <script src="{% static 'app/scripts/freelancer.js' %}"></script>
     <script src="{% static 'app/scripts/Util/StringExtension.js' %}"></script>
     <script src="{% static 'app/scripts/Util/commonUtil.js' %}"></script>
 {% block scripts %}{% endblock %}

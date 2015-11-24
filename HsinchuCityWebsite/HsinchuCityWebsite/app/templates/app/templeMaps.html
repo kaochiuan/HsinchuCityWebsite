@@ -1,0 +1,23 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+<div id="map-canvas" style="height: 500px; width: auto;"></div>
+
+<div id="dialog" title="Basic dialog" >
+選擇地區：
+<br/>
+選擇宗教別：
+<br/>
+寺廟：
+</div>
+
+{% endblock %}
+
+
+
+{% block scripts %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0_GKb5ByccS5AjRq-CVBVEcDYkdlP0w"></script>
+<script src="{{ STATIC_URL }}app/scripts/templates/templeMaps.js"></script>
+{% endblock %}
