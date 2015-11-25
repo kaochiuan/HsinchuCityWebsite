@@ -3,7 +3,9 @@
 {% block content %}
 
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-<div id="map-canvas" style="height: 500px; width: auto;"></div>
+<div id="map-canvas" class="map-canvas">
+    <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com.tw/maps/@24.7655142,121.0162967,15z?hl=zh-TW"></iframe>
+</div>
 
 <div id="dialog" title="求人不如求神" >
     <label for="regions">選擇地區</label>

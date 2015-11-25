@@ -10,6 +10,7 @@ $(function () {
     $("#masterGods").selectmenu().addClass("overflow");
 
     $("#filterBtn").button().click(filterByConditions);
+
 });
 
 function filterByConditions() {
