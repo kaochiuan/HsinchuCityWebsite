@@ -16,6 +16,7 @@ from app.models import TempleInfo, TempleManager
 from app.templateModels import *
 from django.contrib.sites import requests
 from django.views.decorators.csrf import csrf_protect
+from django.core import serializers
 
 def home(request):
     """Renders the home page."""
@@ -54,12 +55,36 @@ def about(request):
 
 def templeMaps(request):
     assert isinstance(request, HttpRequest)
+    regions = TempleInfo.objects.getDistinctRegion()
+    belief = TempleInfo.objects.getDistinctReligiousBelief()
+
+    regionLst = []
+    beliefLst = []
+    for r in regions:
+        regionLst.append(r.locateRegion)
+    for b in belief:
+        beliefLst.append(b.religiousBelief)
+
     return render(request,
         'app/templeMaps.html',
         context_instance = RequestContext(request,
         {
             'title':'求人不如求神',
+            'regions':regionLst,
+            'belief':beliefLst,
         }))
+
+@csrf_protect
+def filterTemple(request):
+    assert isinstance(request, HttpRequest)
+    region = request.POST['region']
+    belief = request.POST['belief']
+
+    filterTemples = TempleInfo.objects.filterByDetail(region,belief)
+    data = serializers.serialize("json", filterTemples)
+    return HttpResponse(json.dumps({"status": "Success", "templeInfo": data}),
+                        content_type="application/json")
+
 
 def allMyGodsInHsinchu(request):
     assert isinstance(request, HttpRequest)
@@ -165,7 +190,7 @@ def syncTempleInfo(request):
                                                                 longitude=item.location.latlng.lng, phone1=item.phone1, phone2=item.phone2)
             elif len(filterResult) == 1 and filterResult[0].latitude == 0 and filterResult[0].longitude == 0 :
                 latitude = item.location.latlng.lat 
-                longitude =  item.location.latlng.lng
+                longitude = item.location.latlng.lng
                 if latitude != 0 and longitude != 0:
                     filterResult[0].latitude = latitude
                     filterResult[0].longitude = longitude

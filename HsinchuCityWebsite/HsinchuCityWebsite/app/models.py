@@ -5,7 +5,6 @@ Definition of models.
 from django.db import models
 
 # Create your models here.
-
 class TempleManager(models.Manager):
     def create_temple(self,name,locateRegion,religiousBelief,masterGod,address,latitude,longitude,phone1,phone2):
         temple = self.create(name=name, locateRegion=locateRegion, religiousBelief=religiousBelief,
@@ -24,6 +23,36 @@ class TempleManager(models.Manager):
     def filterByRegion(self, locateRegion):
         temple = self.filter(locateRegion = locateRegion)
         return temple
+
+    def filterByReligiousBelief(self, religiousBelief):
+        temple = self.filter(religiousBelief = religiousBelief)
+        return temple
+
+    def filterByDetail(self, locateRegion, religiousBelief):
+        location = locateRegion.strip()
+        belief = religiousBelief.strip()
+        if location.isspace():
+            if belief.isspace():
+                temple = self.all()
+            else:
+                temple = self.filter(religiousBelief = religiousBelief)
+        elif belief.isspace():
+            temple = self.filter(locateRegion = locateRegion)
+        else:
+            temple = self.filter(locateRegion = locateRegion, religiousBelief = religiousBelief)
+        return temple
+
+    def getDistinctRegion(self):
+        temple = self.order_by('locateRegion').distinct('locateRegion')
+        return temple
+
+    def getDistinctReligiousBelief(self):
+        temple = self.order_by('religiousBelief').distinct('religiousBelief')
+        return temple
+
+    def getDistinctMasterGod(self):
+       temple = self.order_by('masterGod').distinct('masterGod')
+       return temple
 
 
 class TempleInfo(models.Model):

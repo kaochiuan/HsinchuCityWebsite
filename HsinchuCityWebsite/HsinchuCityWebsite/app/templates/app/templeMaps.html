@@ -5,12 +5,21 @@
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 <div id="map-canvas" style="height: 500px; width: auto;"></div>
 
-<div id="dialog" title="Basic dialog" >
-選擇地區：
+<div id="dialog" title="求人不如求神" >
+    <label for="regions">選擇地區</label>
+    <select name="regions" id="regions">
+    {% for r in regions %}
+        <option>{{r}}</option>
+    {% endfor %}
+    </select>
 <br/>
-選擇宗教別：
-<br/>
-寺廟：
+    <label for="belief">選擇宗教別</label>
+    <select name="belief" id="belief">
+    {% for b in belief %}
+        <option>{{b}}</option>
+    {% endfor %}
+    </select>
+    <div id="filterBtn">查詢</div>
 </div>
 
 {% endblock %}
@@ -18,6 +27,7 @@
 
 
 {% block scripts %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}app/content/templeMaps.css" />
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0_GKb5ByccS5AjRq-CVBVEcDYkdlP0w"></script>
 <script src="{{ STATIC_URL }}app/scripts/templates/templeMaps.js"></script>
 {% endblock %}

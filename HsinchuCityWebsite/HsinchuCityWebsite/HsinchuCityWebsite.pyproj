@@ -65,6 +65,7 @@
   <ItemGroup>
     <Content Include="app\migrations\__pycache__\__init__.cpython-34.pyc" />
     <Content Include="app\static\app\content\bootstrap.css" />
+    <Content Include="app\static\app\content\templeMaps.css" />
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.ttf" />
