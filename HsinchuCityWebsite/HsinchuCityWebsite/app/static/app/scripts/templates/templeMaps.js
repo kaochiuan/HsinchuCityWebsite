@@ -4,12 +4,26 @@ var dialog;
 $(function () {
     initMap();
 
-    dialog = $("#dialog").dialog({ modal: true });
+    BootstrapDialog.show({
+        title: '求人不如求神',
+        message: $("#dialog"),
+        buttons: [{
+            label: 'OK',
+            action: function (dialogRef) {
+                filterByConditions();
+                dialogRef.close();
+            }
+        }, {
+            label: 'Abort',
+            action: function (dialogRef) {
+                dialogRef.close();
+            }
+        }]
+    });
+
     $("#regions").selectmenu().addClass("overflow");
     $("#belief").selectmenu().addClass("overflow");
     $("#masterGods").selectmenu().addClass("overflow");
-
-    $("#filterBtn").button().click(filterByConditions);
 
 });
 

@@ -65,6 +65,7 @@
   <ItemGroup>
     <Content Include="app\migrations\__pycache__\__init__.cpython-34.pyc" />
     <Content Include="app\static\app\content\bootstrap.css" />
+    <Content Include="app\static\app\content\bootstrap-dialog.css" />
     <Content Include="app\static\app\content\templeMaps.css" />
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.svg" />
@@ -79,6 +80,7 @@
     <Content Include="app\static\app\scripts\classie.js" />
     <Content Include="app\static\app\scripts\freelancer.js" />
     <Content Include="app\static\app\scripts\jqBootstrapValidation.js" />
+    <Content Include="app\static\app\scripts\bootstrap-dialog.js" />
     <Content Include="app\static\app\scripts\templates\about.js" />
     <Content Include="app\static\app\scripts\templates\templeMaps.js" />
     <Content Include="app\static\app\scripts\Util\commonUtil.js" />
