@@ -81,8 +81,10 @@ def filterTemple(request):
     belief = request.POST['belief']
 
     filterTemples = TempleInfo.objects.filterByDetail(region,belief)
-    data = serializers.serialize("json", filterTemples)
-    return HttpResponse(json.dumps({"status": "Success", "templeInfo": data}),
+    data = serializers.serialize("json", filterTemples, fields=('name','masterGod','address','latitude','longitude'))
+
+    decoded = json.loads(data)
+    return HttpResponse(json.dumps({"status": "Success", "templeInfo": decoded}),
                         content_type="application/json")
 
 

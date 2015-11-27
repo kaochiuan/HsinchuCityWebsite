@@ -28,6 +28,9 @@ class TempleManager(models.Manager):
         temple = self.filter(religiousBelief = religiousBelief)
         return temple
 
+    def getAll(self):
+        return self.all()
+
     def filterByDetail(self, locateRegion, religiousBelief):
         location = locateRegion.strip()
         belief = religiousBelief.strip()
