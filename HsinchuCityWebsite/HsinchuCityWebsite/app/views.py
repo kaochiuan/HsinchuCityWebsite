@@ -87,7 +87,6 @@ def filterTemple(request):
     return HttpResponse(json.dumps({"status": "Success", "templeInfo": decoded}),
                         content_type="application/json")
 
-
 def allMyGodsInHsinchu(request):
     assert isinstance(request, HttpRequest)
     req = Request("http://opendata.hccg.gov.tw/dataset/480911dd-6eea-4f97-a7e8-334b32cc8f6b/resource/ee12c072-e8aa-4be1-8179-f1c9606198f3/download/20150304091340575.json")
@@ -200,6 +199,50 @@ def syncTempleInfo(request):
 
 
         return HttpResponse(json.dumps({"status": "Success"}),
+                        content_type="application/json")
+    else:
+        return HttpResponse(json.dumps({"status": "Fail"}),
+                        content_type = "application/json")
+
+def getCultureInfo(request):
+    assert isinstance(request, HttpRequest)
+    req = Request("http://opendata.hccg.gov.tw/dataset/28f1cd76-59b9-4877-b350-b064db635eb8/resource/82c2be17-0593-429b-842b-409735a9860f/download/20151119195903997.json")
+    activityLst = []
+    success = False
+    try:
+        response = urllib.request.urlopen(req)
+        ur = response.readall().decode('utf-8-sig')
+        j_obj = json.loads(ur) 
+        activity = cultureActiviy(jsonObj["活動主題"],jsonObj["起始日"],jsonObj["截止日"],jsonObj["時間"],jsonObj["活動名稱"],loc,jsonObj["地點"],jsonObj["地點地址"])
+        activityLst.append(activity)
+    except urllib.error.HTTPError as e:
+        print(e.code)
+        print(e.read().decode("utf-8-sig"))
+
+    if len(activityLst) > 0:
+        return HttpResponse(json.dumps({"status": "Success", "activities" : activityLst}),
+                        content_type="application/json")
+    else:
+        return HttpResponse(json.dumps({"status": "Fail"}),
+                        content_type = "application/json")
+
+def getCityNews(request):
+    assert isinstance(request, HttpRequest)
+    req = Request("http://opendata.hccg.gov.tw/dataset/e9443b8a-da93-46a9-b794-49aabbb815fd/resource/0f3f2cb2-2552-44bf-ba08-54dfaafda034/download/20151127133908155.json")
+    newsLst = []
+    success = False
+    try:
+        response = urllib.request.urlopen(req)
+        ur = response.readall().decode('utf-8-sig')
+        j_obj = json.loads(ur) 
+        news = cityNewes(jsonObj["標題"],jsonObj["發布起始日期"],jsonObj["發布截止日期"],jsonObj["類別"],jsonObj["內容"],loc,jsonObj["圖片路徑(1)"])
+        newsLst.append(news)
+    except urllib.error.HTTPError as e:
+        print(e.code)
+        print(e.read().decode("utf-8-sig"))
+
+    if len(newsLst) > 0:
+        return HttpResponse(json.dumps({"status": "Success", "news" : newsLst}),
                         content_type="application/json")
     else:
         return HttpResponse(json.dumps({"status": "Fail"}),
