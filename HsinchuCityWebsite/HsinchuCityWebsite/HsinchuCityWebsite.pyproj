@@ -86,7 +86,6 @@
     <Content Include="app\static\app\scripts\cbpAnimatedHeader.min.js" />
     <Content Include="app\static\app\scripts\classie.js" />
     <Content Include="app\static\app\scripts\freelancer.js" />
-    <Content Include="app\static\app\scripts\gmap\infobox.js" />
     <Content Include="app\static\app\scripts\gmap\markerclusterer.js" />
     <Content Include="app\static\app\scripts\gmap\markerwithlabel.js" />
     <Content Include="app\static\app\scripts\jqBootstrapValidation.js" />
