@@ -331,3 +331,14 @@ def filterCultureActivities(request):
     decoded = json.loads(data)
     return HttpResponse(json.dumps({"status": "Success", "activityInfo": decoded}),
                         content_type="application/json")
+
+@csrf_protect
+def getTop10News(request):
+    assert isinstance(request, HttpRequest)
+    topNews = CityNewsItem.objects.TopNews()
+    data = serializers.serialize("json", topNews, fields=('title','type','content',
+                                                          'publishDate','picturePath'))
+
+    decoded = json.loads(data)
+    return HttpResponse(json.dumps({"status": "Success", "news": decoded}),
+                        content_type="application/json")

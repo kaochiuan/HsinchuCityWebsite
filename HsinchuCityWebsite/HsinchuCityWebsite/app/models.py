@@ -89,7 +89,6 @@ class CultureActiviyManager(models.Manager):
         activity = self.filter(Q(name__contains=keyword) | Q(endDate__contains=keyword) | Q(startDate__contains=keyword) | 
                                         Q(activityTheme__contains=keyword) | Q(locationName__contains=keyword) | Q(address__contains=keyword))
         return activity
-
 class CultureActiviyInfo(models.Model):
     activityTheme = models.CharField(max_length=50)
     name = models.CharField(max_length=50)
@@ -116,7 +115,10 @@ class CityNewsManager(models.Manager):
                                endDate = endDate);
         return news
     def filterByDate(self,start,end):
-        news = self.filter_activity(Q(publishDate__range=[start, end]) | Q(endDate__range=[start, end]))
+        news = self.filter(Q(publishDate__range=[start, end]) | Q(endDate__range=[start, end]))
+        return news
+    def TopNews(self):
+        news = self.all().order_by('publishDate')[:10]
         return news
 class CityNewsItem(models.Model):
     title = models.CharField(max_length=300)

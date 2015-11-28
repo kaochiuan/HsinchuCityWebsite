@@ -1,15 +1,20 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} - 新竹市政府</title>
+ <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{{title}} - 新竹市政府</title>
     {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'app/content/freelancer.css' %}" />
-    <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
+    <link href="{% static 'app/content/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'app/content/style.css' %}" rel="stylesheet">
+	<link rel="shortcut icon" type="image/png" href="{% static 'app/images/favi.png' %}"/>
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -31,20 +36,21 @@
     
 
 {% block content %}{% endblock %}
-      <!-- Footer -->
+     <!-- Footer -->
     <footer class="text-center">
-        <div class="footer-above">
+       <!--  <div class="footer-above">
             <div class="container">
                 <div class="row">
                     
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="footer-below">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                       <p>&copy; {{ year }} -  PPTRA@Home</p>
+                        <p>30051 新竹市中正路120號 總機： 03-5216121</p>
+						<p>服務時間：週一至週五8：00~12：00，13：00~17：00 </p>						
                     </div>
                 </div>
             </div>
@@ -71,6 +77,14 @@
     <script src="{% static 'app/scripts/freelancer.js' %}"></script>
     <script src="{% static 'app/scripts/Util/StringExtension.js' %}"></script>
     <script src="{% static 'app/scripts/Util/commonUtil.js' %}"></script>
+
+    <!-- jQuery -->
+	<script type="text/javascript"   charset="utf-8">
+            $("#default").load("{% static 'app/mainmenu/default.html' %}");
+            $("#menu1").load("{% static 'app/mainmenu/menu1.html' %}");
+            $("#menu2").load("{% static 'app/mainmenu/menu2.html' %}");
+		    $("#menu3").load("{% static 'app/mainmenu/menu3.html' %}");
+    </script>
 {% block scripts %}{% endblock %}
 
 </body>

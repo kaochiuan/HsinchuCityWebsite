@@ -2,14 +2,14 @@
 
 {% block content %}
 
-<h2>{{ title }}.</h2>
+<h2>{{ title }}</h2>
 <h3>{{ message }}</h3>
 
 <p>Sync opendata info to database.</p>
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-<div id="syncTemples">sync templeInfo to database</div>
-<div id="syncCultureActivities">sync CultureActivity to database</div>
-<div id="syncCityNews">sync CityNews to database</div>
+<button id="syncTemples" type="button" class="btn btn-info">sync templeInfo to database</button>
+<button id="syncCultureActivities" type="button" class="btn btn-info">sync CultureActivity to database</button>
+<button id="syncCityNews" type="button" class="btn btn-info">sync CityNews to database</button>
 
 {% endblock %}
 

@@ -1,4 +1,4 @@
-{% extends "app/layout.html" %}
+﻿{% extends "app/layout.html" %}
 
 {% block content %}
 <!-- Header -->
@@ -9,207 +9,56 @@
 					<div class="input-group">
 					  <input type="text" class="form-control" placeholder="輸入關鍵字...">
 					  <span class="input-group-btn">
-						<button class="btn btn-default" type="button"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>						
+						<button class="btn btn-default" type="button"> <span class="glyphicon glyphicon-search" aria-
+hidden="true"></span></button>						
 					  </span>
 					</div><!-- /input-group -->
 					<p class="text-left">熱門關鍵字: 福利手冊|房價|補助津貼|新竹官網黑客松</p>
+                    <!-- <img class="img-responsive" src="img/profile.png" alt="">-->
+                    <!-- <div class="intro-text">
+                        <span class="name">Start Bootstrap</span>
+                        <hr class="star-light">
+                        <span class="skills">Web Developer - Graphic Artist - User Experience Designer</span>
+                    </div>-->
                 </div>
-				<img class="img-responsive" src="{{ STATIC_URL }}app/images/banner.png" alt="" style="float:right">
-                <ul style="float: left">
-                    <li><a href="{% url 'templeMaps' %}">求人不如求神</a></li>
-                </ul>
+				<img class="img-responsive" src="{{ STATIC_URL }}app/images/banner.png" alt="">
             </div>
         </div>
     </header>
-
-<section id="role">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left">
-                    <h4>請問您是...</h4>             
-                </div>
-            </div>
-			<div class="row hidden-xs">
-				<div class="btn-group btn-group-justified" role="group" aria-label="...">
-				  <div class="btn-group" role="group">
-					<button type="button" class="btn btn-default btn-1">新竹市民</button>
-				  </div>
-				  <div class="btn-group" role="group">
-					<button type="button" class="btn btn-default btn-2">新竹居民(非市民)</button>
-				  </div>
-				  <div class="btn-group" role="group">
-					<button type="button" class="btn btn-default btn-3">商務貿易人士</button>
-				  </div>
-				  <div class="btn-group" role="group">
-					<button type="button" class="btn btn-default btn-4">新竹遊客</button>
-				  </div>
-				</div>			
-			</div>
-			<div class="row visible-xs">
-				<div class="dropdown">
-				  <button type="button" class="btn btn-default btn-3 dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					新竹市民 <span class="caret"></span>
-				  </button>
-				  <ul class="dropdown-menu" >
-					<li><a href="#">新竹市民</a></li>
-					<li><a href="#">新竹居民(非市民)</a></li>
-					<li><a href="#">商務貿易人士</a></li>
-					<li><a href="#">新竹遊客 link</a></li>
-				  </ul>
-				</div>
-			</div>
-			<div class="row">
-                <div class="col-lg-12 text-left">
-                    <h4>市府為您提供以下服務...</h4>             
-                </div>
-            </div>
-			<div class="row">
-                <div class="col-sm-2">
-                    <a href="#" class="role-link">
-                        <div class="role-item">                       
-							<p>社會福利</p>                           
-                        </div>
-                    </a>
-                </div>
-				<div class="col-sm-2">
-                    <a href="#" class="role-link">
-                        <div class="role-item">                       
-							<p>求職就業</p>                           
-                        </div>
-                    </a>
-                </div>
-				<div class="col-sm-2">
-                    <a href="#" class="role-link">
-                        <div class="role-item">                       
-							<p>民政役政</p>                           
-                        </div>
-                    </a>
-                </div>
-				<div class="col-sm-2">
-                    <a href="#" class="role-link">
-                        <div class="role-item">                       
-							<p>教育文化</p>                           
-                        </div>
-                    </a>
-                </div>
-				<div class="col-sm-2">
-                    <a href="#" class="role-link">
-                        <div class="role-item">                       
-							<p>綜合行政</p>                           
-                        </div>
-                    </a>
-                </div>
-				<div class="col-sm-2">
-                    <a href="#" class="role-link">
-                        <div class="role-item">                       
-							<p>經建發展</p>                           
-                        </div>
-                    </a>
-                </div> 	
-            </div>
-			<div class="row">
-				<div class="col-sm-2">
-                    <a href="#" class="role-link">
-                        <div class="role-item">                       
-							<p>工務地政</p>                           
-                        </div>
-                    </a>
-                </div>
-				<div class="col-sm-2">
-                    <a href="#" class="role-link">
-                        <div class="role-item">                       
-							<p>環保衛生</p>                           
-                        </div>
-                    </a>
-                </div>
-				<div class="col-sm-2">
-                    <a href="#" class="role-link">
-                        <div class="role-item">                       
-							<p>警政消防</p>                           
-                        </div>
-                    </a>
-                </div>
-				<div class="col-sm-2">
-                    <a href="#" class="role-link">
-                        <div class="role-item">                       
-							<p>觀光休閒</p>                           
-                        </div>
-                    </a>
-                </div>
-				<div class="col-sm-2">
-                    <a href="#" class="role-link">
-                        <div class="role-item">                       
-							<p>社會福利</p>                           
-                        </div>
-                    </a>
-                </div>
-				<div class="col-sm-2">
-                    <a href="#" class="role-link">
-                        <div class="role-item">                       
-							<p>市政管理</p>                           
-                        </div>
-                    </a>
-                </div> 	
-            </div>
-			<div class="row">
-                <div class="col-lg-12 text-left">
-                    <h4>您可以為新竹...</h4>             
-                </div>
-            </div>
-			<div class="row">
-                <div class="col-sm-8">
-                    <a href="#" class="role-link">
-                        <div class="role-item">                       
-							<p>1999服務專線</p>                           
-                        </div>
-                    </a>
-                </div>
-				<div class="col-sm-2">
-                    <a href="#" class="role-link">
-                        <div class="role-item">                       
-							<p>刊登APP</p>                           
-                        </div>
-                    </a>
-                </div>
-				<div class="col-sm-2">
-                    <a href="#" class="role-link">
-                        <div class="role-item">                       
-							<p>網站勘誤</p>                           
-                        </div>
-                    </a>
-                </div>
-            </div>
-			
-           
-        </div>
-    </section>
+	<section id="role">
+	
 	<div class="container">
-	  <h2>Dynamic Pills</h2>
-	  <ul class="nav nav-pills">
-		<li class="active"><a data-toggle="pill" href="#home">Home</a></li>
-		<li><a data-toggle="pill" href="#menu1">Menu 1</a></li>
-		<li><a data-toggle="pill" href="#menu2">Menu 2</a></li>
-		<li><a data-toggle="pill" href="#menu3">Menu 3</a></li>
+	  <h4>請問您是...</h4>
+	  <ul class="nav nav-pills hidden-xs nav-justified">
+		<li class="active"><a data-toggle="pill" href="#default" class="btn btn-default btn-1">新竹市民</a></li>
+		<li><a data-toggle="pill" href="#menu1" class="btn btn-default btn-2">新竹居民(非市民)</a></li>
+		<li><a data-toggle="pill" href="#menu2" class="btn btn-default btn-3">商務貿易人士/團體組織</a></li>
+		<li><a data-toggle="pill" href="#menu3" class="btn btn-default btn-4">新竹遊客</a></li>
 	  </ul>
-	  
-	  <div class="tab-content">
-		<div id="home" class="tab-pane fade in active">
-		  <h3>HOME</h3>
-		  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+	  <div class="row visible-xs">
+		<div class="dropdown">
+		  <button type="button" class="btn btn-default btn-3 dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			新竹市民 <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" >
+			<li><a href="#default">新竹市民</a></li>
+			<li><a href="#menu1">新竹居民(非市民)</a></li>
+			<li><a href="#menu2">商務貿易人士/團體組織</a></li>
+			<li><a href="#menu3">新竹遊客 link</a></li>
+		  </ul>
 		</div>
-		<div id="menu1" class="tab-pane fade">
-		  <h3>Menu 1</h3>
-		  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+	  </div>
+	  <div class="tab-content">
+		<div id="default" class="tab-pane fade in active">		
+		</div>
+		<div id="menu1" class="tab-pane fade">		
 		</div>
 		<div id="menu2" class="tab-pane fade">
-		  <h3>Menu 2</h3>
-		  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
 		</div>
-		<div id="menu3" class="tab-pane fade">
-		  <h3>Menu 3</h3>
-		  <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+		<div id="menu3" class="tab-pane fade">  
 		</div>
 	  </div>
 	</div>
+    </section>
 
 {% endblock %}

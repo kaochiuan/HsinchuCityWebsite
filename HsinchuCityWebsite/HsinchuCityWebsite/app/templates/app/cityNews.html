@@ -2,6 +2,16 @@
 
 {% block content %}
 
+<h2>{{ title }}</h2>
 
+<p>Sync opendata info to database.</p>
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+<button id="getTopNews" type="button" class="btn btn-info">getTopNews</button>
 
+{% endblock %}
+
+{% block scripts %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}app/content/bootstrap-dialog.css" />
+<script src="{{ STATIC_URL }}app/scripts/bootstrap-dialog.js"></script>
+<script src="{{ STATIC_URL }}app/scripts/templates/cityNews.js"></script>
 {% endblock %}

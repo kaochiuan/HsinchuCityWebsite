@@ -1,0 +1,369 @@
+﻿/*!
+ * Start Bootstrap - Freelancer Bootstrap Theme (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+body {
+    overflow-x: hidden;
+	font-family : 微軟正黑體;
+}
+
+p {
+    font-size: 20px;
+}
+
+p.small {
+    font-size: 16px;
+}
+
+a,
+a:hover,
+a:focus,
+a:active,
+a.active {
+    outline: 0;
+   
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif,微軟正黑體;
+    font-weight: 700;
+}
+
+hr.star-light,
+hr.star-primary {
+    margin: 25px auto 30px;
+    padding: 0;
+    max-width: 250px;
+    border: 0;
+    border-top: solid 5px;
+    text-align: center;
+}
+
+hr.star-light:after,
+hr.star-primary:after {
+    content: "\f005";
+    display: inline-block;
+    position: relative;
+    top: -.8em;
+    padding: 0 .25em;
+    font-family: FontAwesome,微軟正黑體;
+    font-size: 2em;
+}
+
+hr.star-light {
+    border-color: #fff;
+}
+
+hr.star-light:after {
+    color: #fff;
+    background-color: #18bc9c;
+}
+
+hr.star-primary {
+    border-color: #2c3e50;
+}
+
+hr.star-primary:after {
+    color: #2c3e50;
+    background-color: #fff;
+}
+
+.img-centered {
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    color: #fff;
+    background: #4dbfd2;
+}
+
+header .container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+header img {
+    display: block;
+    margin: 0 auto 20px;
+}
+
+header .intro-text .name {
+    display: block;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif,微軟正黑體;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+header .intro-text .skills {
+    font-size: 1.25em;
+    font-weight: 300;
+}
+
+header .input-group {
+    padding-top : 50px;
+	
+}
+
+@media(min-width:768px) {
+    header .container {
+        padding-top: 150px;
+       
+    }
+
+    header .intro-text .name {
+        font-size: 4.75em;
+    }
+
+    header .intro-text .skills {
+        font-size: 1.75em;
+    }
+}
+
+@media(min-width:768px) {
+    .navbar-fixed-top {
+        padding: 10px 0;
+        -webkit-transition: padding .3s;
+        -moz-transition: padding .3s;
+        transition: padding .3s;
+    }
+
+    .navbar-fixed-top .navbar-brand {
+        font-size: 2em;
+        -webkit-transition: all .3s;
+        -moz-transition: all .3s;
+        transition: all .3s;
+    }
+
+    .navbar-fixed-top.navbar-shrink {
+        padding: 10px 0;
+    }
+
+    .navbar-fixed-top.navbar-shrink .navbar-brand {
+        font-size: 1.5em;
+    }
+}
+
+.navbar {
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif,微軟正黑體;
+    font-weight: 700;
+}
+
+.navbar a:focus {
+    outline: 0;
+}
+
+.navbar .navbar-nav {
+    letter-spacing: 1px;
+}
+
+.navbar .navbar-nav li a:focus {
+    outline: 0;
+}
+
+.navbar-default,
+.navbar-inverse {
+    border: 0;
+}
+
+section {
+    padding: 20px 0;
+}
+
+section h2 {
+    margin: 0;
+    font-size: 3em;
+}
+
+section.success {
+    color: #fff;
+    background: #18bc9c;
+}
+
+section.success a,
+section.success a:hover,
+section.success a:focus,
+section.success a:active,
+section.success a.active {
+    outline: 0;
+    color: #2c3e50;
+}
+
+section .btn-group-justified > .btn-group .btn {
+	margin : 0 5%;
+	margin-bottom : 10px;
+	width: 90%;
+	font-size: 19px;
+	border-radius: 0px;
+
+}
+
+section .dropdown .btn,section .dropdown .dropdown-menu {
+	width: 98%;
+	margin : 0 1%;
+
+}
+
+
+.btn-1 {
+	background-color: #ee4239;
+	border-color: #ee4239;
+}
+
+.btn-2 {
+	background-color: #fecd03;
+	border-color: #fecd03;
+}
+
+.btn-3 {
+	background-color: #37aeb5;
+	border-color: #37aeb5;
+}
+
+.btn-4 {
+	background-color: #0fd65a;
+	border-color: #0fd65a;
+}
+
+
+
+@media(max-width:767px) {
+    section {
+        padding: 20px 0;
+    }
+
+    section.first {
+        padding-top: 75px;
+    }
+}
+
+#role{
+	
+	background-color: #e8e8e8; 
+}
+
+.role-item{
+	background-color: #ffffff; 
+	margin-bottom: 10px;
+	height: 80px;
+	line-height: 80px;
+	text-align: center;
+}
+
+#role .row .role-link .role-item:hover{
+	border-bottom: 2px solid #4dbfd2;
+	
+}
+
+#role .nav-pills > li > a,#role .nav-pills > li > a,#role .nav-pills > li.active > a{
+	font-size:18px;
+	width:98%;
+	
+}
+#role .nav-pills .btn:hover{
+	color:#fff;
+	background-color:#aaaaaa;
+}
+
+#role .nav-pills > li.active > a, #role.nav-pills > li.active > a:hover,#role .nav-pills > li.active > a:focus{
+	background-color:#aaaaaa;
+	border-color:#aaaaaa;
+	color:#333333;
+	
+}
+
+
+
+@media(max-width:767px) {
+    #role .row .role-link .role-item{
+		height: 40px;
+		line-height: 40px;
+		margin-bottom: 3px;
+	
+	}
+}
+
+#role a:hover{
+	color: #4dbfd2;
+}
+
+.tab-content {
+padding-top: 15px;
+}
+
+
+
+form .row:first-child .floating-label-form-group {
+    border-top: 1px solid #eee;
+}
+
+footer p {
+    color: #fff;
+	font-size: 13px;
+}
+
+footer h3 {
+    margin-bottom: 30px;
+}
+
+footer .footer-above {
+    padding-top: 50px;
+    background-color: #2c3e50;
+}
+
+footer .footer-col {
+    margin-bottom: 50px;
+}
+
+footer .footer-below {
+    padding: 25px 0;
+    background-color: #233140;
+}
+
+.btn-social {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    text-align: center;
+    font-size: 20px;
+    line-height: 45px;
+}
+
+.btn:focus,
+.btn:active,
+.btn.active {
+    outline: 0;
+}
+
+.scroll-top {
+    z-index: 1049;
+    position: fixed;
+    right: 2%;
+    bottom: 2%;
+    width: 50px;
+    height: 50px;
+}
+
+.scroll-top .btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    font-size: 20px;
+    line-height: 28px;
+}
+
+.scroll-top .btn:focus {
+    outline: 0;
+}

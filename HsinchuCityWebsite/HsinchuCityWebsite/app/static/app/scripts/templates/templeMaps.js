@@ -112,7 +112,7 @@ function initMap() {
     var myOptions = {
         zoom: 7,
         center: new google.maps.LatLng(24.801929, 120.971686),
-        streetViewControl: false,
+        streetViewControl: true,
         scaleControl: true,
         zoomControl: true,
         zoomControlOptions: {
