@@ -151,7 +151,7 @@ def AddressToLatlng(address):
 
     if  jsongeocode['status'] == "OK":
         success = True
-        longitude, latitude = jsongeocode['results'][0]['geometry']['location'].values()        
+        latitude, longitude = jsongeocode['results'][0]['geometry']['location'].values()        
     return success, latitude, longitude
 
 @csrf_protect
@@ -317,3 +317,17 @@ def cityNews(request):
 
 def TaiwanDateToStdDate(dateStr):    
     return datetime.strptime(dateStr, "%Y%m%d")
+
+@csrf_protect
+def filterCultureActivities(request):
+    assert isinstance(request, HttpRequest)
+    keyword = request.POST['keyword']
+
+    filterActivities = CultureActiviyInfo.objects.filterByKeyword(keyword)
+    data = serializers.serialize("json", filterActivities, fields=('name','activityTheme',
+                                                                   'address','latitude','longitude',
+                                                                   'locationName','startDate','endDate','activityTime'))
+
+    decoded = json.loads(data)
+    return HttpResponse(json.dumps({"status": "Success", "activityInfo": decoded}),
+                        content_type="application/json")

@@ -93,6 +93,7 @@
     <Content Include="app\static\app\scripts\jqBootstrapValidation.js" />
     <Content Include="app\static\app\scripts\bootstrap-dialog.js" />
     <Content Include="app\static\app\scripts\templates\about.js" />
+    <Content Include="app\static\app\scripts\templates\cultureActivities.js" />
     <Content Include="app\static\app\scripts\templates\templeMaps.js" />
     <Content Include="app\static\app\scripts\Util\commonUtil.js" />
     <Content Include="app\static\app\scripts\Util\StringExtension.js" />

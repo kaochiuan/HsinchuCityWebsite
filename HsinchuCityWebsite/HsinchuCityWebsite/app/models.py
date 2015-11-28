@@ -79,14 +79,17 @@ class CultureActiviyManager(models.Manager):
                              address=address, latitude=latitude, longitude=longitude,
                              startDate=startDate, endDate=endDate,activityTime=activityTime)
         return activity
+
     def filter_activity(self,name,activityTheme,locationName,address,startDate,endDate):
         activity = self.filter(name = name, activityTheme = activityTheme, locationName = locationName, 
                                address = address, startDate = startDate, endDate = endDate);
         return activity
+
     def filterByKeyword(self,keyword):
-        activity = self.filter_activity(Q(name__contains=keyword) | Q(endDate__contains=keyword) | Q(startDate__contains=keyword) | 
+        activity = self.filter(Q(name__contains=keyword) | Q(endDate__contains=keyword) | Q(startDate__contains=keyword) | 
                                         Q(activityTheme__contains=keyword) | Q(locationName__contains=keyword) | Q(address__contains=keyword))
         return activity
+
 class CultureActiviyInfo(models.Model):
     activityTheme = models.CharField(max_length=50)
     name = models.CharField(max_length=50)

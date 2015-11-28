@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^syncCultureInfo$', 'app.views.syncCultureInfo', name='syncCultureInfo'),
     url(r'^syncCityNews$', 'app.views.syncCityNews', name='syncCityNews'),
     url(r'^filterTemple', 'app.views.filterTemple', name='filterTemple'),
+    url(r'^filterCultureActivities', 'app.views.filterCultureActivities', name='filterCultureActivities'),
     url(r'^cultureActivities', 'app.views.cultureActivities', name='cultureActivities'),
     url(r'^cityNews', 'app.views.cityNews', name='cityNews'),
 
