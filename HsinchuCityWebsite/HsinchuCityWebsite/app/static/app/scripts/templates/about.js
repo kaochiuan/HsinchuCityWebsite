@@ -13,7 +13,7 @@ function SyncTempleInfo() {
         data: {},
         dataType: "json",
         success: function (data) {
-            if (data.status == "Success")
+            if (data.status == "Success") {
                 BootstrapDialog.show({
                     title: '求人不如求神',
                     message: "同步廟宇資訊成功",
@@ -24,6 +24,18 @@ function SyncTempleInfo() {
                         }
                     }]
                 });
+            } else {
+                BootstrapDialog.show({
+                    title: '求人不如求神',
+                    message: "同步廟宇資訊失敗",
+                    buttons: [{
+                        label: 'OK',
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                        }
+                    }]
+                });
+            }
         },
         error: function (data) {
         }
@@ -39,7 +51,7 @@ function syncCultureInfo() {
         data: {},
         dataType: "json",
         success: function (data) {
-            if (data.status == "Success")
+            if (data.status == "Success") {
                 BootstrapDialog.show({
                     title: '藝文活動',
                     message: "同步當月藝文活動成功",
@@ -50,6 +62,18 @@ function syncCultureInfo() {
                         }
                     }]
                 });
+            } else {
+                BootstrapDialog.show({
+                    title: '藝文活動',
+                    message: "同步當月藝文活動失敗",
+                    buttons: [{
+                        label: 'OK',
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                        }
+                    }]
+                });
+            }
         },
         error: function (data) {
         }
@@ -65,7 +89,7 @@ function syncCityNews() {
         data: {},
         dataType: "json",
         success: function (data) {
-            if (data.status == "Success")
+            if (data.status == "Success") {
                 BootstrapDialog.show({
                     title: '市政新聞',
                     message: "同步市政新聞成功",
@@ -76,6 +100,18 @@ function syncCityNews() {
                         }
                     }]
                 });
+            } else {
+                BootstrapDialog.show({
+                    title: '市政新聞',
+                    message: "同步市政新聞失敗",
+                    buttons: [{
+                        label: 'OK',
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                        }
+                    }]
+                });
+            }
         },
         error: function (data) {
         }
