@@ -5,14 +5,18 @@
 <h2>{{ title }}.</h2>
 <h3>{{ message }}</h3>
 
-<p>Use this area to provide additional information.</p>
+<p>Sync opendata info to database.</p>
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 <div id="syncTemples">sync templeInfo to database</div>
+<div id="syncCultureActivities">sync CultureActivity to database</div>
+<div id="syncCityNews">sync CityNews to database</div>
 
 {% endblock %}
 
 
 
 {% block scripts %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}app/content/bootstrap-dialog.css" />
+<script src="{{ STATIC_URL }}app/scripts/bootstrap-dialog.js"></script>
 <script src="{{ STATIC_URL }}app/scripts/templates/about.js"></script>
 {% endblock %}

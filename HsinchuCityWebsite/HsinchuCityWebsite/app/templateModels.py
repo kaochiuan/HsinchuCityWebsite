@@ -21,14 +21,14 @@ class location(object):
         self.latlng = latlng
 
 class cultureActiviy(object):
-    def __init__(self, activityTheme, startDate, endDate, time, name, locationName, address):
+    def __init__(self, activityTheme, startDate, endDate, time, name, locationName, location):
         self.activityTheme = activityTheme
         self.startDate = startDate
         self.endDate = endDate
         self.time = time
         self.name = name
         self.locationName = locationName
-        self.address = address
+        self.location = location
 
 class cityNewes(object):
     def __init__(self, title, publishDate, endDate, type, content, picturePath):

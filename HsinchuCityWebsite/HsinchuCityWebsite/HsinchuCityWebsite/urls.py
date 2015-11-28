@@ -14,12 +14,17 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'app.views.home', name='home'),
     url(r'^contact$', 'app.views.contact', name='contact'),
-    url(r'^about$', 'app.views.about', name='about'),
+    url(r'^syncInfo$', 'app.views.about', name='about'),
     url(r'^allMyGodsInHsinchu$', 'app.views.allMyGodsInHsinchu', name='allMyGodsInHsinchu'),
     url(r'^addressToLatlng$', 'app.views.address_to_location', name='addressToLatlng'),
     url(r'^templeMaps$', 'app.views.templeMaps', name='templeMaps'),
     url(r'^syncTempleInfo$', 'app.views.syncTempleInfo', name='syncTempleInfo'),
+    url(r'^syncCultureInfo$', 'app.views.syncCultureInfo', name='syncCultureInfo'),
+    url(r'^syncCityNews$', 'app.views.syncCityNews', name='syncCityNews'),
     url(r'^filterTemple', 'app.views.filterTemple', name='filterTemple'),
+    url(r'^cultureActivities', 'app.views.cultureActivities', name='cultureActivities'),
+    url(r'^cityNews', 'app.views.cityNews', name='cityNews'),
+
     url(r'^login/$',
         'django.contrib.auth.views.login',
         {
