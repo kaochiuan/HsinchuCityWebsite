@@ -38,3 +38,10 @@ class cityNewes(object):
         self.type = type
         self.content = content
         self.picturePath = picturePath
+
+class hospitalReputation(object):
+    def __init__(self, name, latitude, longitude, reputation):
+        self.name = name
+        self.latitude = latitude
+        self.longitude = longitude
+        self.reputation = reputation

@@ -17,6 +17,7 @@ from app.templateModels import *
 from django.contrib.sites import requests
 from django.views.decorators.csrf import csrf_protect
 from django.core import serializers
+from app.ReputationService import ReputationService
 
 def home(request):
     """Renders the home page."""
@@ -97,7 +98,7 @@ def allMyGodsInHsinchu(request):
         templeLst = []
 
         for jsonObj in j_obj:
-            address = jsonObj["寺廟所在地"]
+            address = jsonObj[u"寺廟所在地"]
             success, lat, lng = AddressToLatlng(address)
             if success == True:
                 wgs84locate = latlng(lat, lng)
@@ -106,7 +107,7 @@ def allMyGodsInHsinchu(request):
                 wgs84locate = latlng(0.0, 0.0)
                 loc = location(address,wgs84locate)
 
-            g = temple(jsonObj["寺廟名稱"],jsonObj["地區"],jsonObj["主祀神像"],jsonObj["教別"],jsonObj["組織型態"],loc,jsonObj["寺廟電話 1"],jsonObj["寺廟電話 2"])
+            g = temple(jsonObj[u"寺廟名稱"],jsonObj[u"地區"],jsonObj[u"主祀神像"],jsonObj[u"教別"],jsonObj[u"組織型態"],loc,jsonObj[u"寺廟電話 1"],jsonObj[u"寺廟電話 2"])
             templeLst.append(g)
 
     except urllib.error.HTTPError as e:
@@ -166,7 +167,7 @@ def syncTempleInfo(request):
         j_obj = json.loads(ur) 
         
         for jsonObj in j_obj:
-            address = jsonObj["寺廟所在地"]
+            address = jsonObj[u"寺廟所在地"]
             success, lat, lng = AddressToLatlng(address)
             if success == True:
                 wgs84locate = latlng(lat, lng)
@@ -175,7 +176,7 @@ def syncTempleInfo(request):
                 wgs84locate = latlng(0.0, 0.0)
                 loc = location(address,wgs84locate)
 
-            g = temple(jsonObj["寺廟名稱"],jsonObj["地區"],jsonObj["主祀神像"],jsonObj["教別"],jsonObj["組織型態"],loc,jsonObj["寺廟電話 1"],jsonObj["寺廟電話 2"])
+            g = temple(jsonObj[u"寺廟名稱"],jsonObj[u"地區"],jsonObj[u"主祀神像"],jsonObj[u"教別"],jsonObj[u"組織型態"],loc,jsonObj[u"寺廟電話 1"],jsonObj[u"寺廟電話 2"])
             templeLst.append(g)
     except urllib.error.HTTPError as e:
         print(e.code)
@@ -215,7 +216,7 @@ def syncCultureInfo(request):
         ur = response.readall().decode('utf-8-sig')
         j_obj = json.loads(ur) 
         for jsonObj in j_obj:
-            address = jsonObj["地點地址"]
+            address = jsonObj[u"地點地址"]
             success, lat, lng = AddressToLatlng(address)
             if success == True:
                 wgs84locate = latlng(lat, lng)
@@ -224,7 +225,7 @@ def syncCultureInfo(request):
                 wgs84locate = latlng(0.0, 0.0)
                 loc = location(address,wgs84locate)
 
-            activity = cultureActiviy(jsonObj["活動主題"],jsonObj["起始日"],jsonObj["截止日"],jsonObj["時間"],jsonObj["活動名稱"],jsonObj["地點"],loc)
+            activity = cultureActiviy(jsonObj[u"活動主題"],jsonObj[u"起始日"],jsonObj[u"截止日"],jsonObj[u"時間"],jsonObj[u"活動名稱"],jsonObj[u"地點"],loc)
             activityLst.append(activity)
     except urllib.error.HTTPError as e:
         print(e.code)
@@ -266,9 +267,9 @@ def syncCityNews(request):
         j_obj = json.loads(ur) 
 
         for jsonObj in j_obj:
-            start = TaiwanDateToStdDate(jsonObj["發布起始日期"])
-            end = TaiwanDateToStdDate(jsonObj["發布截止日期"])
-            news = cityNewes(jsonObj["標題"],start,end,jsonObj["類別"],jsonObj["內容"],jsonObj["圖片路徑(1)"])
+            start = TaiwanDateToStdDate(jsonObj[u"發布起始日期"])
+            end = TaiwanDateToStdDate(jsonObj[u"發布截止日期"])
+            news = cityNewes(jsonObj[u"標題"],start,end,jsonObj[u"類別"],jsonObj[u"內容"],jsonObj[u"圖片路徑(1)"])
             newsLst.append(news)
 
     except urllib.error.HTTPError as e:
@@ -342,3 +343,39 @@ def getTop10News(request):
     decoded = json.loads(data)
     return HttpResponse(json.dumps({"status": "Success", "news": decoded}),
                         content_type="application/json")
+
+@csrf_protect
+def getReputationOfAnimalHospital(request):
+    assert isinstance(request, HttpRequest)
+    req = Request("http://opendata.hccg.gov.tw/dataset/9055d606-9231-4e67-a8bf-2500d736962d/resource/cbefd6b2-8e1b-4348-8136-085241266c92/download/20150306111824929.json")
+
+    response = urllib.request.urlopen(req)
+    ur = response.readall().decode('utf-8-sig')
+    ahr = ReputationService(ur)
+    hos = ahr.get_animal_hospitals()
+    links = ahr.get_hospital_links(hos.keys()) # name: ((success, longitude, latitude),score)
+    data = ahr.blog_crawler_by_title(links)
+    rep = ahr.get_reputation(hos, data)
+
+    jsformat = json.dumps(rep)
+
+    repLst = []
+    for k, v in rep.items():
+        repItem = hospitalReputation(k,v[0][2],v[0][1],v[1])
+        repLst.append(repItem)
+
+    #data = serializers.serialize("json", repLst)
+    #decoded = json.loads(data)
+    jsonStr = [ob.__dict__ for ob in repLst]
+    return HttpResponse(json.dumps({"status": "Success", "reputation": jsonStr}),
+                        content_type="application/json")
+
+def animalHospitalReputation(request):
+    assert isinstance(request, HttpRequest)
+    return render(request,
+        'app/animalHospitalReputation.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'動物醫院評比',
+            'year':datetime.now().year,
+        }))

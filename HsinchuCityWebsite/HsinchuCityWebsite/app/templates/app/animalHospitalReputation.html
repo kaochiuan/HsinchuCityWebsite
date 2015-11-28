@@ -1,25 +1,12 @@
 ﻿{% extends "app/layout.html" %}
 
 {% block content %}
-
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 <div id="map-canvas" class="map-canvas">
 </div>
 
-<div id="dialog" title="求人不如求神" >
-    <label for="regions">選擇地區</label>
-    <select name="regions" id="regions">
-    {% for r in regions %}
-        <option>{{r}}</option>
-    {% endfor %}
-    </select>
-<br/>
-    <label for="belief">選擇宗教別</label>
-    <select name="belief" id="belief">
-    {% for b in belief %}
-        <option>{{b}}</option>
-    {% endfor %}
-    </select>
+<div id="dialog" title="動物醫院評比" >
+    <label>新竹市動物醫院評比</label>
 </div>
 
 {% endblock %}
@@ -33,5 +20,5 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0_GKb5ByccS5AjRq-CVBVEcDYkdlP0w"></script>
 <script src="{{ STATIC_URL }}app/scripts/gmap/markerclusterer.js"></script>
 <script src="{{ STATIC_URL }}app/scripts/gmap/markerwithlabel.js"></script>
-<script src="{{ STATIC_URL }}app/scripts/templates/templeMaps.js"></script>
+<script src="{{ STATIC_URL }}app/scripts/templates/animalHospitalReputation.js"></script>
 {% endblock %}

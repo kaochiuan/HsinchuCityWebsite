@@ -8,7 +8,7 @@ $(function () {
     initMap();
 
     BootstrapDialog.show({
-        title: '求人不如求神',
+        title: '新竹市動物醫院評比',
         message: $("#dialog"),
         buttons: [{
             label: 'OK',
@@ -16,17 +16,8 @@ $(function () {
                 filterByConditions();
                 dialogRef.close();
             }
-        }, {
-            label: 'Abort',
-            action: function (dialogRef) {
-                dialogRef.close();
-            }
         }]
     });
-
-    $("#regions").selectmenu().addClass("overflow");
-    $("#belief").selectmenu().addClass("overflow");
-    $("#masterGods").selectmenu().addClass("overflow");
     //Responsive Google Map
     google.maps.event.addDomListener(window, 'resize', initMap);
     google.maps.event.addDomListener(window, 'load', initMap)
@@ -75,29 +66,26 @@ function OpenInfo(marker) {
 }
 
 function GetInfoWindowHtml(data) {
-    return String.format("<div>寺廟：{0}<br/>主祀神像：{1}<br/>地址：{2}<br/></div>", data.name, data.masterGod, data.address);
+    return String.format("<div>動物醫院：{0}<br/>評比分數：{1}<br/></div>",
+        data.name, data.reputation);
 }
 
 function filterByConditions() {
-    var region = $('#regions option:selected').val();
-    var belief = $('#belief option:selected').val();
-
-    var url = $.url("filterTemple");
+    var url = $.url("getReputationOfAnimalHospital");
     $.ajax({
         url: url,
         cache: false,
         type: 'POST',
-        data: { region: region, belief: belief },
+        data: { },
         dataType: "json",
         success: function (data) {
             //put marker to google map
             if (data.status == "Success") {
-                templeData = data;
+                repData = data;
                 markerArray.splice(0, markerArray.length);
-                $.each(templeData.templeInfo, function (index, temple) {
-                    var templeItem = temple.fields;
-                    var geoLatLng = new google.maps.LatLng(templeItem.latitude, templeItem.longitude);
-                    var l_maker = googleMarkerCreator(geoLatLng, templeItem.name, map, templeItem);
+                $.each(repData.reputation, function (index, reputation) {
+                    var geoLatLng = new google.maps.LatLng(reputation.latitude, reputation.longitude);
+                    var l_maker = googleMarkerCreator(geoLatLng, reputation.name, map, reputation);
                     markerArray.push(l_maker);
                     mapcenterBound.extend(geoLatLng);
                 });

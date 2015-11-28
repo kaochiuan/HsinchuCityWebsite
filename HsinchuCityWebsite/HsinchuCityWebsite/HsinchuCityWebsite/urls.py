@@ -26,7 +26,8 @@ urlpatterns = patterns('',
     url(r'^cultureActivities$', 'app.views.cultureActivities', name='cultureActivities'),
     url(r'^cityNews$', 'app.views.cityNews', name='cityNews'),
     url(r'^getTop10News$', 'app.views.getTop10News', name='getTop10News'),
-
+    url(r'^animalHospitalReputation$', 'app.views.animalHospitalReputation', name='animalHospitalReputation'),
+    url(r'^getReputationOfAnimalHospital$', 'app.views.getReputationOfAnimalHospital', name='getReputationOfAnimalHospital'),
     url(r'^login/$',
         'django.contrib.auth.views.login',
         {

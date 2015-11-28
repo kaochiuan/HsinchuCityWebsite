@@ -18,6 +18,9 @@ $(function () {
             }
         }]
     });
+    //Responsive Google Map
+    google.maps.event.addDomListener(window, 'resize', initMap);
+    google.maps.event.addDomListener(window, 'load', initMap)
     //infowindow close listener
     google.maps.event.addListener(infowindow, 'closeclick', function () { });
 
@@ -39,7 +42,7 @@ function googleMarkerCreator(_latlng, _title, _map, data) {
         labelClass: "fontEffect",
         labelInBackground: true
     });
-    _Marker.templeInfo = data;
+    _Marker.customInfo = data;
     google.maps.event.addListener(_Marker, 'click', mapMarkerTrigger);
     return _Marker;
 }
@@ -53,7 +56,7 @@ function OpenInfo(marker) {
     //將marker放到全域
     if (typeof (marker) != "undefined") {
         infowindow.close();
-        var data = marker.templeInfo;
+        var data = marker.customInfo;
         var contents = GetInfoWindowHtml(data);
         infowindow.setContent(contents);
         if (map.getZoom() < 15) { map.setZoom(15); }
@@ -116,4 +119,19 @@ function initMap() {
 
     mapcenterBound = new google.maps.LatLngBounds(null, null);
     infowindow = new google.maps.InfoWindow({ content: "", maxWidth: 600 });
+
+    // avoid the map to clear all markers
+    if (markerArray.length > 0) {
+        var tempArray = [];
+        $.each(markerArray, function (index, rep) {
+            var geoLatLng = new google.maps.LatLng(rep.customInfo.latitude, rep.customInfo.longitude);
+            var l_maker = googleMarkerCreator(geoLatLng, rep.customInfo.name, map, rep.customInfo);
+            mapcenterBound.extend(geoLatLng);
+            tempArray.push(l_maker);
+        });
+        markerArray.splice(0, markerArray.length);
+        markerArray = tempArray;
+        map.fitBounds(mapcenterBound);
+        markerClusterer = new MarkerClusterer(map, markerArray);
+    }
 }
