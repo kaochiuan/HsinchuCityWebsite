@@ -6,23 +6,10 @@ var markerClustererOpts = { gridSize: 50, maxZoom: 15 }; //cluster參數
 var markerArray = [];
 $(function () {
     initMap();
+    dialog = $("#dialog");
 
-    BootstrapDialog.show({
-        title: '求人不如求神',
-        message: $("#dialog"),
-        buttons: [{
-            label: 'OK',
-            action: function (dialogRef) {
-                filterByConditions();
-                dialogRef.close();
-            }
-        }, {
-            label: 'Abort',
-            action: function (dialogRef) {
-                dialogRef.close();
-            }
-        }]
-    });
+    templesFilter();
+    $("#templesFilter").button().click(templesFilter);
 
     $("#regions").selectmenu().addClass("overflow");
     $("#belief").selectmenu().addClass("overflow");
@@ -36,6 +23,26 @@ $(function () {
     google.maps.event.addListener(map, 'zoom_changed', function () { infowindow.close(); });
 });
 
+function templesFilter() {
+    markerArray.splice(0, markerArray.length);
+    initMap();
+    BootstrapDialog.show({
+        title: '求人不如求神',
+        message: dialog,
+        buttons: [{
+            label: 'OK',
+            action: function (dialogRef) {
+                filterByConditions();
+                dialogRef.close();
+            }
+        }, {
+            label: 'Abort',
+            action: function (dialogRef) {
+                dialogRef.close();
+            }
+        }]
+    });
+}
 function removeClickEvent() {
     google.maps.event.removeListener(clickEvent);
 }
