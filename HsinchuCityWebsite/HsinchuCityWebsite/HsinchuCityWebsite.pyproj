@@ -118,6 +118,7 @@
     <Content Include="app\templates\app\index.html" />
     <Content Include="app\templates\app\memberPerformance.html" />
     <Content Include="app\templates\app\templeMaps.html" />
+    <Content Include="Environment.txt" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.min.css" />
