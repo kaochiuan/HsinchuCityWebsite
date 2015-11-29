@@ -72,6 +72,8 @@
     <Content Include="app\migrations\__pycache__\__init__.cpython-34.pyc" />
     <Content Include="app\static\app\content\bootstrap.css" />
     <Content Include="app\static\app\content\bootstrap-dialog.css" />
+    <Content Include="app\static\app\content\dataTables.bootstrap.css" />
+    <Content Include="app\static\app\content\dataTables.responsive.css" />
     <Content Include="app\static\app\content\gmapTemplate.css" />
     <Content Include="app\static\app\content\style.css" />
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.eot" />

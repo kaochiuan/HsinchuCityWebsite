@@ -367,3 +367,15 @@ footer .footer-below {
 .scroll-top .btn:focus {
     outline: 0;
 }
+
+thead>tr {
+	background-color: #5bc0de;
+	color:#fff;
+
+}
+tbody>tr:nth-child(even) {
+	background-color: #dbf1f8
+}
+tbody>tr:nth-child(odd) {
+	background-color: #FFF
+}
