@@ -31,7 +31,7 @@ class ReputationService(object):
         data = r.json()
 
         try:
-            longitude, latitude =  data['results'][0]['geometry']['location'].values()
+            latitude, longitude  =  data['results'][0]['geometry']['location'].values()
         except Exception:
             success = False
             longitude, latitude = [0,0]

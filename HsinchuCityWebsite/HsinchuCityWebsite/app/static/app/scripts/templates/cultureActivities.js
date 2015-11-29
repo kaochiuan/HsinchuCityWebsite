@@ -27,7 +27,8 @@ function popupKeyword() {
         title: '當月藝文活動',
         message: dialog,
         buttons: [{
-            label: 'OK',
+            label: '確定',
+            cssClass: 'btn btn-default btn-3',
             action: function (dialogRef) {
                 filterByConditions();
                 dialogRef.close();

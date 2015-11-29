@@ -62,4 +62,19 @@ hidden="true"></span></button>
 	</div>
     </section>
 
+    <section id="gov">
+      <div class="container">
+          <a href="#" class="role-link">
+			<div class="role-item" id="getTopNews">                       
+				<p>市政管理區</p>                           
+			</div>
+		  </a>
+       {#<h4>市政管理區...</h4>#}
+      </div>
+     </section>
+{% endblock %}
+{% block scripts %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}app/content/bootstrap-dialog.css" />
+<script src="{{ STATIC_URL }}app/scripts/bootstrap-dialog.js"></script>
+<script src="{{ STATIC_URL }}app/scripts/templates/cityNews.js"></script>
 {% endblock %}

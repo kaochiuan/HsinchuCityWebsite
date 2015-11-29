@@ -361,8 +361,9 @@ def getReputationOfAnimalHospital(request):
 
     repLst = []
     for k, v in rep.items():
-        repItem = hospitalReputation(k,v[0][2],v[0][1],v[1])
-        repLst.append(repItem)
+        if v[0][2] != 0 and v[0][1] != 0:
+            repItem = hospitalReputation(k,v[0][2],v[0][1],v[1])
+            repLst.append(repItem)
 
     #data = serializers.serialize("json", repLst)
     #decoded = json.loads(data)

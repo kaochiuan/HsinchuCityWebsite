@@ -4,9 +4,9 @@
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 <div id="map-canvas" class="map-canvas">
 </div>
-
-<div id="dialog" title="動物醫院評比" >
-    <label>新竹市動物醫院評比</label>
+<button id="startToReputate" type="button" class="btn btn-info">開始動物醫院評比</button>
+<div id="dialog" title="新竹市動物醫院評比" >
+    <label>點選確定後，開始評比</label>
 </div>
 
 {% endblock %}
@@ -20,5 +20,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0_GKb5ByccS5AjRq-CVBVEcDYkdlP0w"></script>
 <script src="{{ STATIC_URL }}app/scripts/gmap/markerclusterer.js"></script>
 <script src="{{ STATIC_URL }}app/scripts/gmap/markerwithlabel.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
 <script src="{{ STATIC_URL }}app/scripts/templates/animalHospitalReputation.js"></script>
 {% endblock %}

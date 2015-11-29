@@ -21,7 +21,8 @@ function getTopNews() {
                     title: '市府新聞',
                     message: cityNewsDashboard(news),
                     buttons: [{
-                        label: 'OK',
+                        label: '確定',
+                        cssClass: 'btn btn-default btn-3',
                         action: function (dialogRef) {
                             dialogRef.close();
                         }

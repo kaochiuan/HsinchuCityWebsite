@@ -30,14 +30,10 @@ function templesFilter() {
         title: '求人不如求神',
         message: dialog,
         buttons: [{
-            label: 'OK',
+            label: '確定',
+            cssClass: 'btn btn-default btn-3',
             action: function (dialogRef) {
                 filterByConditions();
-                dialogRef.close();
-            }
-        }, {
-            label: 'Abort',
-            action: function (dialogRef) {
                 dialogRef.close();
             }
         }]

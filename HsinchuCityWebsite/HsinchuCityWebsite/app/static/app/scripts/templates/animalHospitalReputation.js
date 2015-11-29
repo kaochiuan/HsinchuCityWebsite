@@ -6,18 +6,10 @@ var markerClustererOpts = { gridSize: 50, maxZoom: 15 }; //cluster參數
 var markerArray = [];
 $(function () {
     initMap();
+    dialog = $("#dialog");
+    startToReputate();
 
-    BootstrapDialog.show({
-        title: '新竹市動物醫院評比',
-        message: $("#dialog"),
-        buttons: [{
-            label: 'OK',
-            action: function (dialogRef) {
-                filterByConditions();
-                dialogRef.close();
-            }
-        }]
-    });
+    $("#startToReputate").button().click(startToReputate);
     //Responsive Google Map
     google.maps.event.addDomListener(window, 'resize', initMap);
     google.maps.event.addDomListener(window, 'load', initMap)
@@ -26,6 +18,21 @@ $(function () {
 
     google.maps.event.addListener(map, 'zoom_changed', function () { infowindow.close(); });
 });
+
+function startToReputate() {
+    BootstrapDialog.show({
+        title: '新竹市動物醫院評比',
+        message: dialog,
+        buttons: [{
+            label: '確定',
+            cssClass: 'btn btn-default btn-3',
+            action: function (dialogRef) {
+                filterByConditions();
+                dialogRef.close();
+            }
+        }]
+    });
+}
 
 function removeClickEvent() {
     google.maps.event.removeListener(clickEvent);
@@ -72,11 +79,13 @@ function GetInfoWindowHtml(data) {
 
 function filterByConditions() {
     var url = $.url("getReputationOfAnimalHospital");
+    $.blockUI({ message: "正在評比新竹市所有動物醫院" });
+
     $.ajax({
         url: url,
         cache: false,
         type: 'POST',
-        data: { },
+        data: {},
         dataType: "json",
         success: function (data) {
             //put marker to google map
@@ -92,8 +101,10 @@ function filterByConditions() {
                 map.fitBounds(mapcenterBound);
                 markerClusterer = new MarkerClusterer(map, markerArray);
             }
+            $.unblockUI({ message: "評比完成!!" });
         },
         error: function (data) {
+            $.unblockUI({ message: "評比中斷!!" });
         }
     });
 }
