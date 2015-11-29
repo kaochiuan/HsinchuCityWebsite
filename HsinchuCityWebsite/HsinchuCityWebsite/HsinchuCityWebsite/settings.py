@@ -19,27 +19,27 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': path.join(PROJECT_ROOT, 'db.sqlite3'),
-#        'USER': '',
-#        'PASSWORD': '',
-#        'HOST': '',
-#        'PORT': '',
-#    }
-#}
-
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'HsinchuCityWebsite',
-            'USER': 'street',
-            'PASSWORD': 'intern@street',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': path.join(PROJECT_ROOT, 'db.sqlite3'),
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
+}
+
+#DATABASES = {
+#        'default': {
+#            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#            'NAME': 'HsinchuCityWebsite',
+#            'USER': 'street',
+#            'PASSWORD': 'intern@street',
+#            'HOST': 'localhost',
+#            'PORT': '5432',
+#        }
+#    }
 
 LOGIN_URL = '/login'
 

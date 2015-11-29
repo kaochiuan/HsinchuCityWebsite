@@ -66,6 +66,8 @@ def templeMaps(request):
     for b in belief:
         beliefLst.append(b.religiousBelief)
 
+    regionLst = set(regionLst)
+    beliefLst = set(beliefLst)
     return render(request,
         'app/templeMaps.html',
         context_instance = RequestContext(request,

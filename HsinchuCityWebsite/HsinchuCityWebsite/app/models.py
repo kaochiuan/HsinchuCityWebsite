@@ -47,15 +47,18 @@ class TempleManager(models.Manager):
         return temple
 
     def getDistinctRegion(self):
-        temple = self.order_by('locateRegion').distinct('locateRegion')
+        temple = self.order_by('locateRegion')
+        #temple = self.order_by('locateRegion').distinct('locateRegion')
         return temple
 
     def getDistinctReligiousBelief(self):
-        temple = self.order_by('religiousBelief').distinct('religiousBelief')
+        temple = self.order_by('religiousBelief')
+        #temple = self.order_by('religiousBelief').distinct('religiousBelief')
         return temple
 
     def getDistinctMasterGod(self):
        temple = self.order_by('masterGod').distinct('masterGod')
+       #temple = self.order_by('masterGod').distinct('masterGod')
        return temple
 class TempleInfo(models.Model):
     name = models.CharField(max_length=50)
