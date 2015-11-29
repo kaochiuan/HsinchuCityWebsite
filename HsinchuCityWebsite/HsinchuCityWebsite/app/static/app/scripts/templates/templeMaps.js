@@ -99,10 +99,12 @@ function filterByConditions() {
                 markerArray.splice(0, markerArray.length);
                 $.each(templeData.templeInfo, function (index, temple) {
                     var templeItem = temple.fields;
-                    var geoLatLng = new google.maps.LatLng(templeItem.latitude, templeItem.longitude);
-                    var l_maker = googleMarkerCreator(geoLatLng, templeItem.name, map, templeItem);
-                    markerArray.push(l_maker);
-                    mapcenterBound.extend(geoLatLng);
+                    if (templeItem.latitude != 0 && templeItem.longitude != 0) {
+                        var geoLatLng = new google.maps.LatLng(templeItem.latitude, templeItem.longitude);
+                        var l_maker = googleMarkerCreator(geoLatLng, templeItem.name, map, templeItem);
+                        markerArray.push(l_maker);
+                        mapcenterBound.extend(geoLatLng);
+                    }
                 });
                 map.fitBounds(mapcenterBound);
                 markerClusterer = new MarkerClusterer(map, markerArray);
