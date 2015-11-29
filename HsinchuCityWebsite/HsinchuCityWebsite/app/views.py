@@ -380,3 +380,14 @@ def animalHospitalReputation(request):
             'title':'動物醫院評比',
             'year':datetime.now().year,
         }))
+
+def memberPerformance(request):
+    """Renders the about page."""
+    assert isinstance(request, HttpRequest)
+    return render(request,
+        'app/memberPerformance.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'議員所提地方建設建議事項',
+            'year':datetime.now().year,
+        }))

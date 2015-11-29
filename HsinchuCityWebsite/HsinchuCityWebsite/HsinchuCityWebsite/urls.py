@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^getTop10News$', 'app.views.getTop10News', name='getTop10News'),
     url(r'^animalHospitalReputation$', 'app.views.animalHospitalReputation', name='animalHospitalReputation'),
     url(r'^getReputationOfAnimalHospital$', 'app.views.getReputationOfAnimalHospital', name='getReputationOfAnimalHospital'),
+    url(r'^memberPerformance$', 'app.views.memberPerformance', name='memberPerformance'),
     url(r'^login/$',
         'django.contrib.auth.views.login',
         {
