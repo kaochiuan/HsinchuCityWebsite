@@ -7,7 +7,7 @@ var markerArray = [];
 $(function () {
     initMap();
     dialog = $("#dialog");
-    
+
     popupKeyword();
     $("#keywordSearch").button().click(popupKeyword);
 
@@ -87,7 +87,7 @@ function filterByConditions() {
         url: url,
         cache: false,
         type: 'POST',
-        data: { keyword: keyword},
+        data: { keyword: keyword },
         dataType: "json",
         success: function (data) {
             //put marker to google map
@@ -95,11 +95,14 @@ function filterByConditions() {
                 activityData = data;
                 markerArray.splice(0, markerArray.length);
                 $.each(activityData.activityInfo, function (index, temple) {
+                    //filter out latitude = 0 and longitude = 0
                     var activity = temple.fields;
-                    var geoLatLng = new google.maps.LatLng(activity.latitude, activity.longitude);
-                    var l_maker = googleMarkerCreator(geoLatLng, activity.name, map, activity);
-                    markerArray.push(l_maker);
-                    mapcenterBound.extend(geoLatLng);
+                    if (activity.latitude != 0 && activity.longitude != 0) {
+                        var geoLatLng = new google.maps.LatLng(activity.latitude, activity.longitude);
+                        var l_maker = googleMarkerCreator(geoLatLng, activity.name, map, activity);
+                        markerArray.push(l_maker);
+                        mapcenterBound.extend(geoLatLng);
+                    }
                 });
                 map.fitBounds(mapcenterBound);
                 markerClusterer = new MarkerClusterer(map, markerArray);

@@ -1,6 +1,7 @@
 ﻿.ui-dialog {overflow: visible;}
 
 .map-canvas {
+margin-top:100px;
 position: relative;
 padding-bottom: 26.25%;
 padding-top: 30px;

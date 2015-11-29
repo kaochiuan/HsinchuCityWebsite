@@ -73,8 +73,8 @@ function OpenInfo(marker) {
 }
 
 function GetInfoWindowHtml(data) {
-    return String.format("<div>動物醫院：{0}<br/>評比分數：{1}<br/></div>",
-        data.name, data.reputation);
+    return String.format("<div>動物醫院：{0}<br/>正評筆數：{1}<br/>負評筆數：{2}<br/></div>",
+        data.name, data.positiveReputation, data.negativeReputation);
 }
 
 function filterByConditions() {

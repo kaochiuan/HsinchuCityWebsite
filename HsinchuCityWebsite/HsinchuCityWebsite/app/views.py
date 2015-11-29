@@ -353,8 +353,8 @@ def getReputationOfAnimalHospital(request):
     ur = response.readall().decode('utf-8-sig')
     ahr = ReputationService(ur)
     hos = ahr.get_animal_hospitals()
-    links = ahr.get_hospital_links(hos.keys()) # name: ((success, longitude, latitude),score)
-    data = ahr.blog_crawler_by_title(links)
+    links = ahr.get_hospital_links(hos.keys()) # name: ((success, latitude, longitude), score)
+    data = ahr.blog_crawler(links)
     rep = ahr.get_reputation(hos, data)
 
     jsformat = json.dumps(rep)
@@ -362,7 +362,7 @@ def getReputationOfAnimalHospital(request):
     repLst = []
     for k, v in rep.items():
         if v[0][2] != 0 and v[0][1] != 0:
-            repItem = hospitalReputation(k,v[0][2],v[0][1],v[1])
+            repItem = hospitalReputation(k,v[0][1],v[0][2],v[1]['positive'],v[1]['negative'])
             repLst.append(repItem)
 
     #data = serializers.serialize("json", repLst)
