@@ -7,7 +7,8 @@
 });
 
 function getReputationOfAnimalHospital() {
-    var url = $.url("getReputationOfAnimalHospital");
+    var url = $.url("syncReputationOfAnimalHospital");
+    $.blockUI({ message: "正在評比新竹市所有動物醫院" });
     $.ajax({
         url: url,
         cache: false,
@@ -16,9 +17,10 @@ function getReputationOfAnimalHospital() {
         dataType: "json",
         success: function (data) {
             if (data.status == "Success") {
+                $.unblockUI({ message: "評比完成!!" });
                 BootstrapDialog.show({
                     title: '動物醫院評比',
-                    message: "取得評比成功",
+                    message: "同步評比資訊, 並寫入資料庫成功",
                     buttons: [{
                         label: 'OK',
                         action: function (dialogRef) {
@@ -27,6 +29,7 @@ function getReputationOfAnimalHospital() {
                     }]
                 });
             } else {
+                $.unblockUI({ message: "評比過程有錯誤發生，請重新評比!!" });
                 BootstrapDialog.show({
                     title: '動物醫院評比',
                     message: "取得評比失敗",
