@@ -40,9 +40,8 @@ class cityNewes(object):
         self.picturePath = picturePath
 
 class hospitalReputation(object):
-    def __init__(self, name, latitude, longitude, positiveReputation, negativeReputation ):
+    def __init__(self, name, location, positiveReputation, negativeReputation ):
         self.name = name
-        self.latitude = latitude
-        self.longitude = longitude
+        self.location = location
         self.positiveReputation = positiveReputation
         self.negativeReputation = negativeReputation

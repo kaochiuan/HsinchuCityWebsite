@@ -7,12 +7,13 @@ from django.http import HttpResponse
 from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
+from datetime import date
 from django.http.response import HttpResponse
 import urllib.request
 import json
 import urllib
 from urllib.request import Request
-from app.models import TempleInfo, TempleManager, CultureActiviyInfo, CityNewsItem
+from app.models import TempleInfo, TempleManager, CultureActiviyInfo, CityNewsItem, AnamialHospitalReputation
 from app.templateModels import *
 from django.contrib.sites import requests
 from django.views.decorators.csrf import csrf_protect
@@ -49,7 +50,7 @@ def about(request):
         'app/about.html',
         context_instance = RequestContext(request,
         {
-            'title':'Settings',
+            'title':'與Opendata平台同步資料',
             'message':'Application data sync',
             'year':datetime.now().year,
         }))
@@ -154,7 +155,8 @@ def AddressToLatlng(address):
 
     if  jsongeocode['status'] == "OK":
         success = True
-        latitude, longitude = jsongeocode['results'][0]['geometry']['location'].values()        
+        latitude = jsongeocode['results'][0]['geometry']['location']['lat']
+        longitude = jsongeocode['results'][0]['geometry']['location']['lng']
     return success, latitude, longitude
 
 @csrf_protect
@@ -258,6 +260,53 @@ def syncCultureInfo(request):
                         content_type = "application/json")
 
 @csrf_protect
+def syncReputationOfAnimalHospital(request):
+    assert isinstance(request, HttpRequest)
+    req = Request("http://opendata.hccg.gov.tw/dataset/9055d606-9231-4e67-a8bf-2500d736962d/resource/cbefd6b2-8e1b-4348-8136-085241266c92/download/20150306111824929.json")
+
+    response = urllib.request.urlopen(req)
+    ur = response.readall().decode('utf-8-sig')
+    ahr = ReputationService(ur)
+    hos = ahr.get_animal_hospitals() # (success, address, latitude, longitude)
+    links = ahr.get_hospital_links(hos.keys()) 
+    data = ahr.blog_crawler(links)
+    rep = ahr.get_reputation(hos, data) # name: ((success, address, latitude, longitude), {'positive':score,'negative':score})
+
+    jsformat = json.dumps(rep)
+
+    repLst = []
+    for k, v in rep.items():
+        wgs84locate = latlng(v[0][2], v[0][3])
+        locateLatlng = location(v[0][1],wgs84locate)
+        repItem = hospitalReputation(k,locateLatlng,v[1]['positive'],v[1]['negative'])
+        repLst.append(repItem)
+
+    if len(repLst) > 0:
+        # sync CultureActiviyInfo to database
+        for item in repLst:
+            filterResult = AnamialHospitalReputation.objects.filter_reputation(name=item.name,address=item.location.address)
+
+            today = date.today()                                                                      
+            if len(filterResult) == 0:
+                templeItem = AnamialHospitalReputation.objects.create_reputation(name=item.name,address=item.location.address,
+                                                                                 latitude=item.location.latlng.lat,longitude=item.location.latlng.lng,
+                                                                                 postiveScore=item.positiveReputation,negativeScore=item.negativeReputation,
+                                                                                 dataDT=today)
+
+            elif len(filterResult) == 1:
+                if  item.location.latlng.lat == 0 or item.location.latlng.lng == 0 :
+                    filterResult[0].latitude = item.location.latlng.lat
+                    filterResult[0].longitude = item.location.latlng.lng
+
+                filterResult[0].postiveScore = item.positiveReputation
+                filterResult[0].negativeScore = item.negativeReputation
+                filterResult[0].dataDT = today
+                filterResult[0].save()
+
+    return HttpResponse(json.dumps({"status": "Success"}),
+        content_type="application/json")
+
+@csrf_protect
 def syncCityNews(request):
     assert isinstance(request, HttpRequest)
     req = Request("http://opendata.hccg.gov.tw/dataset/e9443b8a-da93-46a9-b794-49aabbb815fd/resource/0f3f2cb2-2552-44bf-ba08-54dfaafda034/download/20151127133908155.json")
@@ -347,30 +396,37 @@ def getTop10News(request):
                         content_type="application/json")
 
 @csrf_protect
+def searchAnimalHospitalByName(request):
+    assert isinstance(request, HttpRequest)
+    name = request.POST['name']
+    topRputations = AnamialHospitalReputation.objects.filterByName(name)
+    data = serializers.serialize("json", topRputations, fields=('name','address','latitude','longitude',
+                                                          'postiveScore','negativeScore','dataDT'))
+
+    decoded = json.loads(data)
+    return HttpResponse(json.dumps({"status": "Success", "reputation": decoded}),
+                        content_type="application/json")
+
+@csrf_protect
+def getTop10AnimalHospital(request):
+    assert isinstance(request, HttpRequest)
+    topRputations = AnamialHospitalReputation.objects.Top10Hospital()
+    data = serializers.serialize("json", topRputations, fields=('name','address','latitude','longitude',
+                                                          'postiveScore','negativeScore','dataDT'))
+
+    decoded = json.loads(data)
+    return HttpResponse(json.dumps({"status": "Success", "reputation": decoded}),
+                        content_type="application/json")
+
+@csrf_protect
 def getReputationOfAnimalHospital(request):
     assert isinstance(request, HttpRequest)
-    req = Request("http://opendata.hccg.gov.tw/dataset/9055d606-9231-4e67-a8bf-2500d736962d/resource/cbefd6b2-8e1b-4348-8136-085241266c92/download/20150306111824929.json")
+    allRputations = AnamialHospitalReputation.objects.getAll()
+    data = serializers.serialize("json", allRputations, fields=('name','address','latitude','longitude',
+                                                          'postiveScore','negativeScore','dataDT'))
 
-    response = urllib.request.urlopen(req)
-    ur = response.readall().decode('utf-8-sig')
-    ahr = ReputationService(ur)
-    hos = ahr.get_animal_hospitals()
-    links = ahr.get_hospital_links(hos.keys()) # name: ((success, latitude, longitude), score)
-    data = ahr.blog_crawler(links)
-    rep = ahr.get_reputation(hos, data)
-
-    jsformat = json.dumps(rep)
-
-    repLst = []
-    for k, v in rep.items():
-        if v[0][2] != 0 and v[0][1] != 0:
-            repItem = hospitalReputation(k,v[0][1],v[0][2],v[1]['positive'],v[1]['negative'])
-            repLst.append(repItem)
-
-    #data = serializers.serialize("json", repLst)
-    #decoded = json.loads(data)
-    jsonStr = [ob.__dict__ for ob in repLst]
-    return HttpResponse(json.dumps({"status": "Success", "reputation": jsonStr}),
+    decoded = json.loads(data)
+    return HttpResponse(json.dumps({"status": "Success", "reputation": decoded}),
                         content_type="application/json")
 
 def animalHospitalReputation(request):

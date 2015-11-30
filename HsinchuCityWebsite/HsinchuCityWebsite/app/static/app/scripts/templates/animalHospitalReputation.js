@@ -8,8 +8,8 @@ $(function () {
     initMap();
     dialog = $("#dialog");
     startToReputate();
-
     $("#startToReputate").button().click(startToReputate);
+    //$("#getTopHospital").button().click(requestTopHospital);
     //Responsive Google Map
     google.maps.event.addDomListener(window, 'resize', initMap);
     google.maps.event.addDomListener(window, 'load', initMap)
@@ -19,6 +19,56 @@ $(function () {
     google.maps.event.addListener(map, 'zoom_changed', function () { infowindow.close(); });
 });
 
+function requestTopHospital() {
+    BootstrapDialog.show({
+        title: '新竹市評比前10名動物醫院',
+        message: dialog,
+        buttons: [{
+            label: '確定',
+            cssClass: 'btn btn-default btn-3',
+            action: function (dialogRef) {
+                getTopHospital();
+                dialogRef.close();
+            }
+        }]
+    });
+}
+
+function getTopHospital() {
+    var url = $.url("getTop10AnimalHospital");
+    $.blockUI({ message: "正在取得新竹市評比前10名動物醫院" });
+
+    $.ajax({
+        url: url,
+        cache: false,
+        type: 'POST',
+        data: {},
+        dataType: "json",
+        success: function (data) {
+            //put marker to google map
+            if (data.status == "Success") {
+                var repData = data;
+                markerArray.splice(0, markerArray.length);
+                $.each(repData.reputation, function (index, reputation) {
+                    var hospital = reputation.fields;
+                    if (hospital.latitude != 0 && hospital.longitude != 0) {
+                        var geoLatLng = new google.maps.LatLng(hospital.latitude, hospital.longitude);
+                        var l_maker = googleMarkerCreator(geoLatLng, hospital.name, map, hospital);
+                        markerArray.push(l_maker);
+                        mapcenterBound.extend(geoLatLng);
+                    }
+                });
+                map.fitBounds(mapcenterBound);
+                markerClusterer = new MarkerClusterer(map, markerArray);
+            }
+            $.unblockUI({ message: "評比完成!!" });
+        },
+        error: function (data) {
+            $.unblockUI({ message: "評比中斷!!" });
+        }
+    });
+}
+
 function startToReputate() {
     BootstrapDialog.show({
         title: '新竹市動物醫院評比',
@@ -27,7 +77,7 @@ function startToReputate() {
             label: '確定',
             cssClass: 'btn btn-default btn-3',
             action: function (dialogRef) {
-                filterByConditions();
+                getAllHospital();
                 dialogRef.close();
             }
         }]
@@ -73,13 +123,13 @@ function OpenInfo(marker) {
 }
 
 function GetInfoWindowHtml(data) {
-    return String.format("<div>動物醫院：{0}<br/>正評筆數：{1}<br/>負評筆數：{2}<br/></div>",
-        data.name, data.positiveReputation, data.negativeReputation);
+    return String.format("<div>動物醫院：{0}<br/>地址：{1}<br/>正評筆數：{2}<br/>負評筆數：{3}<br/></div>",
+        data.name, data.address, data.postiveScore, data.negativeScore);
 }
 
-function filterByConditions() {
+function getAllHospital() {
     var url = $.url("getReputationOfAnimalHospital");
-    $.blockUI({ message: "正在評比新竹市所有動物醫院" });
+    $.blockUI({ message: "正在取得新竹市所有動物醫院評比" });
 
     $.ajax({
         url: url,
@@ -90,13 +140,16 @@ function filterByConditions() {
         success: function (data) {
             //put marker to google map
             if (data.status == "Success") {
-                repData = data;
+                var repData = data;
                 markerArray.splice(0, markerArray.length);
                 $.each(repData.reputation, function (index, reputation) {
-                    var geoLatLng = new google.maps.LatLng(reputation.latitude, reputation.longitude);
-                    var l_maker = googleMarkerCreator(geoLatLng, reputation.name, map, reputation);
-                    markerArray.push(l_maker);
-                    mapcenterBound.extend(geoLatLng);
+                    var hospital = reputation.fields;
+                    if (hospital.latitude != 0 && hospital.longitude != 0) {
+                        var geoLatLng = new google.maps.LatLng(hospital.latitude, hospital.longitude);
+                        var l_maker = googleMarkerCreator(geoLatLng, hospital.name, map, hospital);
+                        markerArray.push(l_maker);
+                        mapcenterBound.extend(geoLatLng);
+                    }
                 });
                 map.fitBounds(mapcenterBound);
                 markerClusterer = new MarkerClusterer(map, markerArray);

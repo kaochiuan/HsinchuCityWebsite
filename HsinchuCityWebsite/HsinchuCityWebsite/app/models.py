@@ -135,3 +135,36 @@ class CityNewsItem(models.Model):
     def __unicode__(self):
         return str.format("{0}_{1}",self.title,self.publishDate)
 
+# AnamialHospitalReputation & Manager
+class AnamialHospitalReputationManager(models.Manager):
+    def create_reputation(self,name,address,latitude,longitude,postiveScore,negativeScore,dataDT):
+        reputation = self.create(name=name, address=address, latitude=latitude, longitude=longitude, postiveScore=postiveScore, negativeScore=negativeScore,dataDT=dataDT)
+        return reputation
+    def filter_reputation(self,name,address):
+        reputation = self.filter(name = name, address = address)
+        return reputation
+    def filterByName(self,name):
+        reputation = self.filter(name__contains=name);
+        return reputation
+    def filterByDate(self,start,end):
+        reputation = self.filter(dataDT__range=[start, end])
+        return reputation
+    def Top10Hospital(self):
+        reputation = self.all().extra(select = {'score': 'postiveScore - negativeScore'}, order_by=['-score'])[:10]
+        return reputation
+    def getAll(self):
+        reputation = self.all()
+        return reputation
+class AnamialHospitalReputation(models.Model):
+    name = models.CharField(max_length=300)
+    address = models.TextField()
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    postiveScore = models.IntegerField()
+    negativeScore = models.IntegerField()
+    dataDT = models.DateField()
+    objects = AnamialHospitalReputationManager()
+    
+    def __unicode__(self):
+        return str.format("{0}_{1}",self.hospitalName,self.dataDT)
+

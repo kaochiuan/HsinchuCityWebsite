@@ -34,6 +34,8 @@
     <Compile Include="app\migrations\0001_initial.py" />
     <Compile Include="app\migrations\0002_citynewsitem_cultureactiviyinfo.py" />
     <Compile Include="app\migrations\0003_auto_20151128_1509.py" />
+    <Compile Include="app\migrations\0004_anamialhospitalreputation.py" />
+    <Compile Include="app\migrations\0005_auto_20151130_1506.py" />
     <Compile Include="app\migrations\__init__.py" />
     <Compile Include="app\models.py" />
     <Compile Include="app\ReputationService.py" />

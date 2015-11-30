@@ -18,7 +18,7 @@ class ReputationService(object):
         #    data = json.load(f)
         data = self.__json_content
         addresses = [data[i][u"機構地址"] for i in range(len(data))]        
-        coordinates = list(map(lambda address: self.address_to_location(address), addresses))  
+        coordinates = list(map(lambda address: self.address_to_location(address), addresses))  # (success, address, latitude, longitude)
         hospitals = {data[i][u"機構名稱"]:coordinates[i] for i in range(len(data))}
         return hospitals
 
@@ -30,11 +30,12 @@ class ReputationService(object):
         data = r.json()
 
         try:
-            latitude, longitude =  data['results'][0]['geometry']['location'].values()
+            latitude = data['results'][0]['geometry']['location']['lat']
+            longitude = data['results'][0]['geometry']['location']['lng']
         except Exception:
             success = False
             latitude, longitude = [0,0]
-        return (success, latitude, longitude)
+        return (success, address, latitude, longitude)
 
     def links_crawler(self, keywords):
         qs = {"q": keywords}
