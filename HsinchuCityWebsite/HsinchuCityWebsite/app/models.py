@@ -121,7 +121,7 @@ class CityNewsManager(models.Manager):
         news = self.filter(Q(publishDate__range=[start, end]) | Q(endDate__range=[start, end]))
         return news
     def TopNews(self):
-        news = self.all().order_by('publishDate')[:10]
+        news = self.all().order_by('-publishDate')[:10]
         return news
 class CityNewsItem(models.Model):
     title = models.CharField(max_length=300)
