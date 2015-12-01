@@ -86,6 +86,7 @@
     <Content Include="app\static\app\images\android.png" />
     <Content Include="app\static\app\images\apple.png" />
     <Content Include="app\static\app\images\banner.png" />
+    <Content Include="app\static\app\images\favi.ico" />
     <Content Include="app\static\app\images\favi.png" />
     <Content Include="app\static\app\images\logo.png" />
     <Content Include="app\static\app\images\markercluster\m1.png" />
