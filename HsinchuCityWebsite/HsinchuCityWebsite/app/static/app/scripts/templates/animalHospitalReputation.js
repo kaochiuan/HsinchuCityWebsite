@@ -123,8 +123,8 @@ function OpenInfo(marker) {
 }
 
 function GetInfoWindowHtml(data) {
-    return String.format("<div>動物醫院：{0}<br/>地址：{1}<br/>正評筆數：{2}<br/>負評筆數：{3}<br/></div>",
-        data.name, data.address, data.postiveScore, data.negativeScore);
+    return String.format("<div>動物醫院：{0}<br/>地址：{1}<br/>正評筆數：{2}<br/>負評筆數：{3}<br/><br/>更新日期：{4}<br/></div>",
+        data.name, data.address, data.postiveScore, data.negativeScore, data.dataDT);
 }
 
 function getAllHospital() {
