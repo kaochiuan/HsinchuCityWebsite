@@ -32,6 +32,7 @@ urlpatterns = patterns('',
     url(r'^getTop10AnimalHospital$', 'app.views.getTop10AnimalHospital', name='getTop10AnimalHospital'),
     url(r'^searchAnimalHospitalByName$', 'app.views.searchAnimalHospitalByName', name='searchAnimalHospitalByName'),
     url(r'^memberPerformance$', 'app.views.memberPerformance', name='memberPerformance'),
+    url(r'^favicon.ico/$', 'app.views.favicon_redirect', name='favicon'),
     url(r'^login/$',
         'django.contrib.auth.views.login',
         {

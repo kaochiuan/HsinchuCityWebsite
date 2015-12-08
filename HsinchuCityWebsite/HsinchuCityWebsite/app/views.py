@@ -19,6 +19,10 @@ from django.contrib.sites import requests
 from django.views.decorators.csrf import csrf_protect
 from django.core import serializers
 from app.ReputationService import ReputationService
+from django.shortcuts import redirect
+
+def favicon_redirect(request):
+        return redirect('/static/app/images/favi.ico')
 
 def home(request):
     """Renders the home page."""
