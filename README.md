@@ -22,4 +22,4 @@ requests: 2.8.1
 
 ## deploy on azure
 
- * http://hsinchucity.azurewebsites.net/
+ * https://hsinchucity.azurewebsites.net/
